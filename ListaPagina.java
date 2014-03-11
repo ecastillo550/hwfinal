@@ -27,4 +27,17 @@ public class ListaPagina {
     public Pagina getPagina(){
         return pagina;
     }
+    
+    public Pagina getPaginaByNumero(int numero){
+        Pagina aux = new Pagina();
+            aux = pagina;
+            
+            while(aux.getNextPagina() != null ){
+                if (aux.getNumero() == numero) {
+                    return aux;
+                }
+                aux = aux.getNextPagina();
+            }
+            return aux;
+    }
 }

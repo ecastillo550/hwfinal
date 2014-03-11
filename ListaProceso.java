@@ -37,4 +37,17 @@ public class ListaProceso {
             }
             return aux;
     }
+    
+    public Proceso getProcesoByID(int id){
+        Proceso aux = new Proceso();
+            aux = proceso;
+            
+            while(aux.getNextProceso() != null ){
+                if (aux.getId() == id) {
+                    return aux;
+                }
+                aux = aux.getNextProceso();
+            }
+            return aux;
+    }
 }

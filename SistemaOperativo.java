@@ -15,14 +15,16 @@ public class SistemaOperativo {
         
         procesos.setProceso(2,2,2,2,2);
         procesos.getLastProceso().setPagina(5,5,5,5,5,5,5);
-        procesos.getLastProceso().setPagina(6,6,6,6,6,6,6);
+        procesos.getLastProceso().setPagina(6,33333,6,6,6,6,6);
         
         procesos.setProceso(3,3,3,3,3);
         procesos.getLastProceso().setPagina(7,7,7,7,7,7,7);
         procesos.getLastProceso().setPagina(8,8,8,8,8,8,8);
         
         auxproceso = procesos.getProceso();
+        System.out.println("Proceso idddddd: " + procesos.getProcesoByID(3).getId());
         
+        System.out.println("pag residenciaaa: " + procesos.getProcesoByID(2).getListaPagina().getPaginaByNumero(6).getResidencia());
         
         while(auxproceso != null){
             System.out.println("\n---------------------------------------------------------");
