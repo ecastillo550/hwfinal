@@ -66,5 +66,4 @@ public class Proceso {
     public Proceso getNextProceso(){
         return nextProceso;
     }
-    
 }

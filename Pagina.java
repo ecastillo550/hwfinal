@@ -8,16 +8,17 @@ public class Pagina {
     private int NURlectura;
     private int NURescritura;
     private int modificacion;
+    private int numacceso;
     private Pagina nextPagina;
     
-    public Pagina(int numero, int residencia, int llegada, int acceso, int NURlectura, int NURescritura, int modificacion){
+    public Pagina(int numero, int residencia, int llegada, int acceso, int numacceso, int NURlectura, int NURescritura){
         this.setNumero(numero);
         this.setResidencia(residencia);
         this.setLlegada(llegada);
         this.setAcceso(acceso);
         this.setNURlectura(NURlectura);
         this.setNURescritura(NURescritura);
-        this.setModificacion(modificacion); 
+        this.setNumAcceso(numacceso); 
         nextPagina = null;
     }
     public Pagina(){
@@ -25,6 +26,7 @@ public class Pagina {
         this.setResidencia(0);
         this.setLlegada(0);
         this.setAcceso(0);
+        this.setNumAcceso(0);
         this.setNURlectura(0);
         this.setNURescritura(0);
         this.setModificacion(0); 
@@ -42,6 +44,9 @@ public class Pagina {
     }
     public void setAcceso(int acceso){
         this.acceso = acceso;
+    }
+    public void setNumAcceso(int numacceso){
+        this.numacceso = numacceso;
     }
     public void setNURlectura(int NURlectura){
         this.NURlectura = NURlectura;
@@ -67,6 +72,9 @@ public class Pagina {
     }
     public int getAcceso(){
         return acceso;
+    }
+    public int getNumAcceso(){
+        return numacceso;
     }
     public int getNURlectura(){
         return NURlectura;

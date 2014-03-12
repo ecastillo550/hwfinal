@@ -1,53 +1,88 @@
 package sistemaoperativo;
 
+import java.io.*;
+
 public class SistemaOperativo {
 
     public static void main(String[] args) {
-        ListaProceso procesos = new ListaProceso();
-        Pagina auxpaginacion = new Pagina();
-        Proceso auxproceso = new Proceso();
+        String path = "C:\\Users\\erick\\Documents\\NetBeansProjects\\SistemaOperativo\\src\\sistemaoperativo\\proc.txt";
+        ListaProceso procesos = SetProcesos(path);
+        procesos.showState();
         
-        procesos.setProceso(1,1,1,1,1);
-        procesos.getLastProceso().setPagina(1,1,1,1,1,1,1);
-        procesos.getLastProceso().setPagina(2,2,2,2,2,2,2);
-        procesos.getLastProceso().setPagina(3,3,3,3,3,3,3);
-        procesos.getLastProceso().setPagina(4,4,4,4,4,4,4);
-        
-        procesos.setProceso(2,2,2,2,2);
-        procesos.getLastProceso().setPagina(5,5,5,5,5,5,5);
-        procesos.getLastProceso().setPagina(6,33333,6,6,6,6,6);
-        
-        procesos.setProceso(3,3,3,3,3);
-        procesos.getLastProceso().setPagina(7,7,7,7,7,7,7);
-        procesos.getLastProceso().setPagina(8,8,8,8,8,8,8);
-        
-        auxproceso = procesos.getProceso();
-        System.out.println("Proceso idddddd: " + procesos.getProcesoByID(3).getId());
-        
-        System.out.println("pag residenciaaa: " + procesos.getProcesoByID(2).getListaPagina().getPaginaByNumero(6).getResidencia());
-        
-        while(auxproceso != null){
-            System.out.println("\n---------------------------------------------------------");
-            System.out.println("Proceso id: " + auxproceso.getId());
-            System.out.println("Proceso llegada: " + auxproceso.getLlegada());
-            System.out.println("Proceso estado: " + auxproceso.getEstado());
-            System.out.println("Proceso num paginas : " + auxproceso.getNumeropaginas());
-            System.out.println("Proceso tiempo: " + auxproceso.getTiempo());
-
-            auxpaginacion = auxproceso.getListaPagina().getPagina();
-
-            while(auxpaginacion != null){
-                System.out.println("\nProceso pagina numero: " + auxpaginacion.getNumero());
-                System.out.println("Proceso pagina residencia: " + auxpaginacion.getResidencia());
-                System.out.println("Proceso pagina llegada: " + auxpaginacion.getLlegada());
-                System.out.println("Proceso pagina acceso : " + auxpaginacion.getAcceso());
-                System.out.println("Proceso pagina NURlectura: " + auxpaginacion.getNURlectura());
-                System.out.println("Proceso pagina NURescritura: " + auxpaginacion.getNURescritura());
-                System.out.println("Proceso pagina modificacion: " + auxpaginacion.getModificacion()); 
-                auxpaginacion = auxpaginacion.getNextPagina();
-            }
-            auxproceso = auxproceso.getNextProceso();
-        }
-    }
+        System.out.println("\n---------------------------------------------------------");
+        procesos.FIFO(3, 1);
+        System.out.println("\ncambio de pagina a cargar 1 proc3: " + procesos.getProcesoByID(3).getListaPagina().getPaginaByNumero(1).getResidencia());
+        procesos.showState();
+    }//fin main
     
+    public static ListaProceso SetProcesos(String path) {
+      File archivo = null;
+      FileReader fileReader = null;
+      BufferedReader bufferedReader = null;
+      String[] current;
+      
+      ListaProceso procesos = new ListaProceso();
+      
+      try {
+         // Apertura del fichero y creacion de BufferedReader para poder
+         // hacer una lectura comoda (disponer del metodo readLine()).
+         archivo = new File (path);
+         fileReader = new FileReader (archivo);
+         bufferedReader = new BufferedReader(fileReader);  
+         
+         // Lectura del fichero
+         String linea;
+         
+         linea = bufferedReader.readLine().trim();
+         procesos.setMaxPag(Integer.parseInt(linea));
+         
+         linea = bufferedReader.readLine().trim();
+         procesos.setNumProcesos(Integer.parseInt(linea));
+         
+         int id, llegada, tiempo, estado, numpaginas;
+         
+         for(int numproc = 0 ; numproc <= procesos.getNumProcesos()-1; numproc++){
+             linea = bufferedReader.readLine().trim();
+             current = linea.split(",");
+             id = numproc;
+             llegada = Integer.parseInt(current[0].trim());
+             tiempo = Integer.parseInt(current[1].trim());
+             estado = Integer.parseInt(current[2].trim());
+             
+             linea = bufferedReader.readLine().trim();
+             numpaginas = Integer.parseInt(linea);
+             procesos.setProceso(id, llegada, tiempo, estado, numpaginas);
+             
+             for(int numpag = 0 ; numpag <= procesos.getLastProceso().getNumeropaginas()-1; numpag++){
+                linea = bufferedReader.readLine().trim();
+                current = linea.split(",");
+                procesos.getLastProceso().setPagina(numpag,
+                                                    Integer.parseInt(current[0].trim()),
+                                                    Integer.parseInt(current[1].trim()),
+                                                    Integer.parseInt(current[2].trim()),
+                                                    Integer.parseInt(current[3].trim()),
+                                                    Integer.parseInt(current[4].trim()),
+                                                    Integer.parseInt(current[5].trim()));
+             }
+         }
+      }
+      catch(Exception e) {
+         System.out.println("\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Error de archivo>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+         // e.printStackTrace();
+      } 
+      finally {
+         // En el finally cerramos el fichero, para asegurarnos
+         // que se cierra tanto si todo va bien como si salta
+         // una excepcion.
+         try {                   
+            if( null != fileReader ) {  
+               fileReader.close();    
+            }                 
+         } 
+         catch (Exception e2) {
+            e2.printStackTrace();
+         }
+      }
+    return procesos;
+    } // fin Setprocesos  
 }
