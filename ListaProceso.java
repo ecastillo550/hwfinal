@@ -117,9 +117,9 @@ public class ListaProceso {
             }
             aux = aux.getNextPagina();
         }
-        if(counter <= this.getMaxPag()){
+        if(counter >= this.getMaxPag()){
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
-
+            
             while(aux != null){
                 if(aux.getLlegada() <= lower && aux.getResidencia() == 1){
                     lower = aux.getLlegada();

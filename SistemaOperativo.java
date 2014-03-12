@@ -10,8 +10,10 @@ public class SistemaOperativo {
         procesos.showState();
         
         System.out.println("\n---------------------------------------------------------");
-        procesos.FIFO(3, 1);
+        procesos.FIFO(2, 3);
         System.out.println("\ncambio de pagina a cargar 1 proc3: " + procesos.getProcesoByID(3).getListaPagina().getPaginaByNumero(1).getResidencia());
+        procesos.showState();
+        procesos.FIFO(2, 0);
         procesos.showState();
     }//fin main
     
@@ -41,7 +43,7 @@ public class SistemaOperativo {
          
          int id, llegada, tiempo, estado, numpaginas;
          
-         for(int numproc = 0 ; numproc <= procesos.getNumProcesos()-1; numproc++){
+         for(int numproc = 1 ; numproc <= procesos.getNumProcesos(); numproc++){
              linea = bufferedReader.readLine().trim();
              current = linea.split(",");
              id = numproc;
