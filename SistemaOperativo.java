@@ -10,11 +10,10 @@ public class SistemaOperativo {
         procesos.showState();
         
         System.out.println("\n---------------------------------------------------------");
-        procesos.FIFO(2, 3);
-        System.out.println("\ncambio de pagina a cargar 1 proc3: " + procesos.getProcesoByID(3).getListaPagina().getPaginaByNumero(1).getResidencia());
+        procesos.LFU(3, 3);
         procesos.showState();
-        procesos.FIFO(2, 0);
-        procesos.showState();
+        //procesos.FIFO(2, 0);
+        //procesos.showState();
     }//fin main
     
     public static ListaProceso SetProcesos(String path) {
@@ -85,6 +84,8 @@ public class SistemaOperativo {
             e2.printStackTrace();
          }
       }
+    procesos.setTiempo();
+    
     return procesos;
     } // fin Setprocesos  
 }

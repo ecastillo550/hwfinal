@@ -4,12 +4,37 @@ public class ListaProceso {
     private Proceso proceso;
     private int maxPag;
     private int numProcesos;
+    private int tiempo;
     
-//    public ListaProceso(){
-//        
-//    }
-    
-     public void setMaxPag(int maxPag){
+    public void setTiempo(){
+        Pagina auxpaginacion = new Pagina();
+        Proceso auxproceso = new Proceso();
+        int tiempomax = 0;
+        auxproceso = proceso;
+        
+        while(auxproceso != null){
+            auxpaginacion = auxproceso.getListaPagina().getPagina();
+
+            while(auxpaginacion != null){
+                if (auxpaginacion.getAcceso() > tiempomax) {
+                    tiempomax = auxpaginacion.getAcceso();
+                }
+ 
+                auxpaginacion = auxpaginacion.getNextPagina();
+            }
+            auxproceso = auxproceso.getNextProceso();
+        } // fin proceso while
+        
+        this.tiempo = tiempomax;
+    }
+   
+    public void setTiempoManual(int tiempo){
+        this.tiempo = tiempo;
+    }
+    public void TiempoPasa(){
+        this.tiempo += 1;
+    }
+    public void setMaxPag(int maxPag){
         this.maxPag = maxPag;
     }
     public void setNumProcesos(int numProcesos){
@@ -38,6 +63,9 @@ public class ListaProceso {
     }
     public int getMaxPag(){
         return maxPag;
+    }
+    public int getTiempo(){
+        return tiempo;
     }
     public int getNumProcesos(){
         return numProcesos;
@@ -72,8 +100,8 @@ public class ListaProceso {
         
         auxproceso = proceso;
         System.out.println("SO max pag: " + this.getMaxPag());
-        
         System.out.println("SO Num procesos: " + this.getNumProcesos());
+        System.out.println("SO tiempo del sistema: " + this.getTiempo());
         
         while(auxproceso != null){
             System.out.println("\n---------------------------------------------------------");
@@ -81,7 +109,7 @@ public class ListaProceso {
             System.out.println("Proceso llegada: " + auxproceso.getLlegada());
             System.out.println("Proceso estado: " + auxproceso.getEstado());
             System.out.println("Proceso num paginas : " + auxproceso.getNumeropaginas());
-            System.out.println("Proceso tiempo: " + auxproceso.getTiempo());
+            System.out.println("Proceso tiempo estimado: " + auxproceso.getTiempo());
 
             auxpaginacion = auxproceso.getListaPagina().getPagina();
 
@@ -101,40 +129,122 @@ public class ListaProceso {
     }
     
     public void FIFO(int ProcesoID, int PaginaID){
-    int counter = 0;
-    int lowerID = 0;
-    int lower = 0;
-    Pagina aux = new Pagina();
-    aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
-    if(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0){
-        while(aux != null){
-            if(aux.getResidencia() == 1){
-                counter++; 
-            }
-            //hacemos crecer al maximo
-            if(aux.getLlegada() > lower){
-                lower = aux.getLlegada();                
-            }
-            aux = aux.getNextPagina();
-        }
-        if(counter >= this.getMaxPag()){
-            aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
-            
+        int counter = 0;
+        int lowerID = 0;
+        int lower = 0;
+        Pagina aux = new Pagina();
+        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+        if(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0){
             while(aux != null){
-                if(aux.getLlegada() <= lower && aux.getResidencia() == 1){
-                    lower = aux.getLlegada();
-                    lowerID = aux.getNumero();
+                if(aux.getResidencia() == 1){
+                    counter++; 
+                }
+                //hacemos crecer al maximo
+                if(aux.getLlegada() > lower){
+                    lower = aux.getLlegada();                
                 }
                 aux = aux.getNextPagina();
             }
+            if(counter >= this.getMaxPag()){  
+                aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
 
-            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
-            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
-        } else {
-            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
-        }
+                while(aux != null){
+                    if(aux.getLlegada() <= lower && aux.getResidencia() == 1){
+                        lower = aux.getLlegada();
+                        lowerID = aux.getNumero();
+                    }
+                    aux = aux.getNextPagina();
+                }
+
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
+            } else {
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
+            }
+        } 
+        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo()+1);
+        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
+                .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso()+1);
+        this.TiempoPasa();
     }
     
-    //return listapagina;
+    public void LRU(int ProcesoID, int PaginaID){
+        int counter = 0;
+        int lowerID = 0;
+        int lower = 0;
+        Pagina aux = new Pagina();
+        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+        if(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0){
+            while(aux != null){
+                if(aux.getResidencia() == 1){
+                    counter++; 
+                }
+                //hacemos crecer al maximo
+                if(aux.getAcceso() > lower){
+                    lower = aux.getLlegada();                
+                }
+                aux = aux.getNextPagina();
+            }
+            if(counter >= this.getMaxPag()){  
+                aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                while(aux != null){
+                    if(aux.getAcceso() <= lower && aux.getResidencia() == 1){
+                        lower = aux.getLlegada();
+                        lowerID = aux.getNumero();
+                    }
+                    aux = aux.getNextPagina();
+                }
+
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
+            } else {
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
+            }
+        }
+        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo()+1);
+        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
+                .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso()+1);
+        this.TiempoPasa();
+    }
+    
+    public void LFU(int ProcesoID, int PaginaID){
+        int counter = 0;
+        int lowerID = 0;
+        int lower = 0;
+        Pagina aux = new Pagina();
+        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+        if(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0){
+            while(aux != null){
+                if(aux.getResidencia() == 1){
+                    counter++; 
+                }
+                //hacemos crecer al maximo
+                if(aux.getNumAcceso() > lower){
+                    lower = aux.getLlegada();                
+                }
+                aux = aux.getNextPagina();
+            }
+            if(counter >= this.getMaxPag()){  
+                aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                while(aux != null){
+                    if(aux.getNumAcceso() <= lower && aux.getResidencia() == 1){
+                        lower = aux.getLlegada();
+                        lowerID = aux.getNumero();
+                    }
+                    aux = aux.getNextPagina();
+                }
+
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
+            } else {
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
+            }
+        }//FIN siel bit residenciafue 0  
+        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo()+1);
+        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
+                .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso()+1);
+        this.TiempoPasa();
     }
 }
