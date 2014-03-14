@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace SistemaOperativo
 {
@@ -94,6 +95,33 @@ namespace SistemaOperativo
             return numProcesos;
         }
 
+        public DataTable DisplayPages(int ProcesoID) {
+            DataTable table = new DataTable();
+            table.Columns.Add("Pagina", Type.GetType("System.String"));
+            table.Columns.Add("R", Type.GetType("System.String"));
+            table.Columns.Add("Llegada", Type.GetType("System.String"));
+            table.Columns.Add("Ultimo acceso", Type.GetType("System.String"));
+            table.Columns.Add("Acceso", Type.GetType("System.String"));
+            table.Columns.Add("NURlectura", Type.GetType("System.String"));
+            table.Columns.Add("Modificacion", Type.GetType("System.String"));
+
+            Pagina aux = new Pagina();
+            aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+            while (aux != null) {
+                table.Rows.Add(aux.getNumero(),
+                aux.getResidencia(),
+                aux.getLlegada(),
+                aux.getAcceso(),
+                aux.getNumAcceso(),
+                aux.getNURlectura(),
+                aux.getModificacion());
+                aux = aux.getNextPagina();
+            }
+
+            return table;
+        }
+
         public Proceso getLastProceso()
         {
             Proceso aux = new Proceso();
@@ -164,7 +192,6 @@ namespace SistemaOperativo
                 Console.WriteLine("Proceso pagina acceso : " + auxpaginacion.getAcceso());
                 Console.WriteLine("Proceso pagina numero de accesos : " + auxpaginacion.getNumAcceso());
                 Console.WriteLine("Proceso pagina NURlectura: " + auxpaginacion.getNURlectura());
-                Console.WriteLine("Proceso pagina NURescritura: " + auxpaginacion.getNURescritura());
                 Console.WriteLine("Proceso pagina modificacion: " + auxpaginacion.getModificacion()); 
                 auxpaginacion = auxpaginacion.getNextPagina();
             }
@@ -172,36 +199,28 @@ namespace SistemaOperativo
         } // fin proceso while
     }
 
-        public void FIFO(int ProcesoID, int PaginaID)
-        {
+        public void FIFO(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
-            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0)
-            {
-                while (aux != null)
-                {
-                    if (aux.getResidencia() == 1)
-                    {
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
+                while (aux != null) {
+                    if (aux.getResidencia() == 1) {
                         counter++;
                     }
                     //hacemos crecer al maximo
-                    if (aux.getLlegada() > lower)
-                    {
+                    if (aux.getLlegada() > lower) {
                         lower = aux.getLlegada();
                     }
                     aux = aux.getNextPagina();
                 }
-                if (counter >= this.getMaxPag())
-                {
+                if (counter >= this.getMaxPag()) {
                     aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
 
-                    while (aux != null)
-                    {
-                        if (aux.getLlegada() <= lower && aux.getResidencia() == 1)
-                        {
+                    while (aux != null) {
+                        if (aux.getLlegada() <= lower && aux.getResidencia() == 1) {
                             lower = aux.getLlegada();
                             lowerID = aux.getNumero();
                         }
@@ -211,8 +230,7 @@ namespace SistemaOperativo
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
                 }
-                else
-                {
+                else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
             }
@@ -220,38 +238,35 @@ namespace SistemaOperativo
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
                     .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() - this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
         }
 
-        public void LRU(int ProcesoID, int PaginaID)
-        {
+        public void LRU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
-            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0)
-            {
-                while (aux != null)
-                {
-                    if (aux.getResidencia() == 1)
-                    {
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
+                while (aux != null) {
+                    if (aux.getResidencia() == 1) {
                         counter++;
                     }
                     //hacemos crecer al maximo
-                    if (aux.getAcceso() > lower)
-                    {
+                    if (aux.getAcceso() > lower) {
                         lower = aux.getLlegada();
                     }
                     aux = aux.getNextPagina();
                 }
-                if (counter >= this.getMaxPag())
-                {
+                if (counter >= this.getMaxPag()) {
                     aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
 
-                    while (aux != null)
-                    {
-                        if (aux.getAcceso() <= lower && aux.getResidencia() == 1)
-                        {
+                    while (aux != null) {
+                        if (aux.getAcceso() <= lower && aux.getResidencia() == 1) {
                             lower = aux.getLlegada();
                             lowerID = aux.getNumero();
                         }
@@ -261,8 +276,7 @@ namespace SistemaOperativo
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
                 }
-                else
-                {
+                else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
             }
@@ -270,38 +284,35 @@ namespace SistemaOperativo
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
                     .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() - this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
         }
 
-        public void LFU(int ProcesoID, int PaginaID)
-        {
+        public void LFU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
-            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0)
-            {
-                while (aux != null)
-                {
-                    if (aux.getResidencia() == 1)
-                    {
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
+                while (aux != null) {
+                    if (aux.getResidencia() == 1) {
                         counter++;
                     }
                     //hacemos crecer al maximo
-                    if (aux.getNumAcceso() > lower)
-                    {
+                    if (aux.getNumAcceso() > lower) {
                         lower = aux.getLlegada();
                     }
                     aux = aux.getNextPagina();
                 }
-                if (counter >= this.getMaxPag())
-                {
+                if (counter >= this.getMaxPag()) {
                     aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
 
-                    while (aux != null)
-                    {
-                        if (aux.getNumAcceso() <= lower && aux.getResidencia() == 1)
-                        {
+                    while (aux != null) {
+                        if (aux.getNumAcceso() <= lower && aux.getResidencia() == 1) {
                             lower = aux.getLlegada();
                             lowerID = aux.getNumero();
                         }
@@ -311,8 +322,7 @@ namespace SistemaOperativo
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
                 }
-                else
-                {
+                else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
             }//FIN siel bit residenciafue 0  
@@ -320,56 +330,94 @@ namespace SistemaOperativo
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
                     .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() - this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
         }
 
-        public void NUR(int ProcesoID, int PaginaID)
-        {
+        public void NUR(int ProcesoID, int PaginaID) {
             int counter = 0;
-            int lowerID = 0;
-            int lower = 0;
+            int pagID = -1;
             Pagina aux = new Pagina();
+
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
-            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0)
-            {
-                while (aux != null)
-                {
-                    if (aux.getResidencia() == 1)
-                    {
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
+                while (aux != null) { // counter inicial
+                    if (aux.getResidencia() == 1) {
                         counter++;
-                    }
-                    //hacemos crecer al maximo
-                    if (aux.getNumAcceso() > lower)
-                    {
-                        lower = aux.getLlegada();
                     }
                     aux = aux.getNextPagina();
                 }
-                if (counter >= this.getMaxPag())
-                {
+
+                if (counter >= this.getMaxPag()) {
                     aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
 
-                    while (aux != null)
-                    {
-                        if (aux.getNumAcceso() <= lower && aux.getResidencia() == 1)
-                        {
-                            lower = aux.getLlegada();
-                            lowerID = aux.getNumero();
+                    while (aux != null) { // primer caso 0,0
+                        if (aux.getNURlectura() == 0 && aux.getModificacion() == 0 && aux.getNumero() != PaginaID) {
+                            pagID = aux.getNumero();
                         }
                         aux = aux.getNextPagina();
                     }
 
-                    this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
-                    this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
-                }
-                else
-                {
+                    if (pagID == -1) { // segundo caso 1,0
+                        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                        while (aux != null) {
+                            if (aux.getNURlectura() == 1 && aux.getModificacion() == 0 && aux.getNumero() != PaginaID) {
+                                pagID = aux.getNumero();
+                            }
+                            aux = aux.getNextPagina();
+                        }
+                    }
+
+                    if (pagID == -1) { // tercer caso 0,1
+                        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                        while (aux != null) {
+                            if (aux.getNURlectura() == 0 && aux.getModificacion() == 1 && aux.getNumero() != PaginaID) {
+                                pagID = aux.getNumero();
+                            }
+                            aux = aux.getNextPagina();
+                        }
+                    }
+
+                    if (pagID == -1) { // cuarto caso 1,1
+                        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                        while (aux != null) {
+                            if (aux.getNURlectura() == 1 && aux.getModificacion() == 1 && aux.getNumero() != PaginaID) {
+                                pagID = aux.getNumero();
+                            }
+                            aux = aux.getNextPagina();
+                        }
+                    }
+
+                    if (pagID == -1) { // ERROR GARRAFAL
+                        Console.WriteLine("Error en paginacion, nur no encuentra candidato a cambiar.");
+                    }
+                    else {
+
+                        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(pagID).setResidencia(0);
+                        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
+                    }
+                } // FIN counter > limite de pags
+                else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
             }//FIN siel bit residenciafue 0  
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
-            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
-                    .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
+            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() - this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
+
+            //procesos unicos de nur
+            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNURlectura(1);
         }
     }
 }
