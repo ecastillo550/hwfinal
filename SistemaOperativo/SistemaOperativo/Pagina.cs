@@ -11,7 +11,6 @@ namespace SistemaOperativo {
         private int llegada;
         private int acceso;
         private int NURlectura;
-        private int NURescritura;
         private int modificacion;
         private int numacceso;
         private int numaccesoINI;
@@ -23,7 +22,6 @@ namespace SistemaOperativo {
             this.setLlegada(llegada);
             this.setAcceso(acceso);
             this.setNURlectura(NURlectura);
-            this.setNURescritura(NURescritura);
             this.setNumAcceso(numacceso);
             this.setNumAccesoINI(numacceso);
             nextPagina = null;
@@ -35,7 +33,6 @@ namespace SistemaOperativo {
             this.setAcceso(0);
             this.setNumAcceso(0);
             this.setNURlectura(0);
-            this.setNURescritura(0);
             this.setModificacion(0);
             this.setNumAccesoINI(0);
             nextPagina = null;
@@ -61,9 +58,6 @@ namespace SistemaOperativo {
         }
         public void setNURlectura(int NURlectura) {
             this.NURlectura = NURlectura;
-        }
-        public void setNURescritura(int NURescritura) {
-            this.NURescritura = NURescritura;
         }
         public void setModificacion(int modificacion) {
             this.modificacion = modificacion;
@@ -92,9 +86,6 @@ namespace SistemaOperativo {
         }
         public int getNURlectura() {
             return NURlectura;
-        }
-        public int getNURescritura() {
-            return NURescritura;
         }
         public int getModificacion() {
             return modificacion;

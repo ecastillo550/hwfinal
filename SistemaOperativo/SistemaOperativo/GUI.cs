@@ -17,11 +17,11 @@ namespace SistemaOperativo {
             procesos.showState();
 
             Console.WriteLine("\n---------------------------------------------------------");
-            procesos.LFU(3, 3); procesos.showState();
-            procesos.LFU(3, 3); procesos.showState();
-            procesos.LFU(3, 3); procesos.showState();
-            procesos.LFU(3, 3); procesos.showState();
-            procesos.LFU(3, 3);
+            procesos.NUR(3, 1); procesos.showState();
+            procesos.NUR(3, 2); procesos.showState();
+            procesos.NUR(3, 3); procesos.showState();
+            procesos.NUR(3, 1); procesos.showState();
+            procesos.NUR(3, 3);
             procesos.showState();
             tb1.Text = procesos.getTiempo().ToString();
         }

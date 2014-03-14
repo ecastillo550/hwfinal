@@ -41,5 +41,16 @@ namespace SistemaOperativo {
             }
             return aux;
         }
+
+        public void NURreset() {
+            Pagina aux = new Pagina();
+            aux = pagina;
+
+            while (aux.getNextPagina() != null) {
+                aux.setModificacion(0);
+                aux.setNURlectura(0);
+                aux = aux.getNextPagina();
+            }
+        }
     }
 }

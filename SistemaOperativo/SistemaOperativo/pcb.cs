@@ -140,7 +140,6 @@ namespace SistemaOperativo {
                     Console.WriteLine("Proceso pagina numero de accesos : " + auxpaginacion.getNumAcceso());
                     Console.WriteLine("Proceso pagina numero de accesos INI: " + auxpaginacion.getNumAccesoINI());
                     Console.WriteLine("Proceso pagina NURlectura: " + auxpaginacion.getNURlectura());
-                    Console.WriteLine("Proceso pagina NURescritura: " + auxpaginacion.getNURescritura());
                     Console.WriteLine("Proceso pagina modificacion: " + auxpaginacion.getModificacion());
                     Console.WriteLine("\n");
                     auxpaginacion = auxpaginacion.getNextPagina();
@@ -289,35 +288,70 @@ namespace SistemaOperativo {
 
         public void NUR(int ProcesoID, int PaginaID) {
             int counter = 0;
-            int lowerID = 0;
-            int lower = 0;
+            int pagID = -1;
             Pagina aux = new Pagina();
+
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
             if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
-                while (aux != null) {
+                while (aux != null) { // counter inicial
                     if (aux.getResidencia() == 1) {
                         counter++;
                     }
-                    //hacemos crecer al maximo
-                    if (aux.getNumAcceso() > lower) {
-                        lower = aux.getLlegada();
-                    }
                     aux = aux.getNextPagina();
                 }
+
                 if (counter >= this.getMaxPag()) {
                     aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
 
-                    while (aux != null) {
-                        if (aux.getNumAcceso() <= lower && aux.getResidencia() == 1) {
-                            lower = aux.getLlegada();
-                            lowerID = aux.getNumero();
+                    while (aux != null) { // primer caso 0,0
+                        if (aux.getNURlectura() == 0 && aux.getModificacion() == 0 && aux.getNumero() != PaginaID) {
+                            pagID = aux.getNumero();
                         }
                         aux = aux.getNextPagina();
                     }
 
-                    this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(lowerID).setResidencia(0);
-                    this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
-                }
+                    if (pagID == -1) { // segundo caso 1,0
+                        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                        while (aux != null) {
+                            if (aux.getNURlectura() == 1 && aux.getModificacion() == 0 && aux.getNumero() != PaginaID) {
+                                pagID = aux.getNumero();
+                            }
+                            aux = aux.getNextPagina();
+                        }
+                    }
+
+                    if (pagID == -1) { // tercer caso 0,1
+                        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                        while (aux != null) {
+                            if (aux.getNURlectura() == 0 && aux.getModificacion() == 1 && aux.getNumero() != PaginaID) {
+                                pagID = aux.getNumero();
+                            }
+                            aux = aux.getNextPagina();
+                        }
+                    }
+
+                    if (pagID == -1) { // cuarto caso 1,1
+                        aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
+
+                        while (aux != null) {
+                            if (aux.getNURlectura() == 1 && aux.getModificacion() == 1 && aux.getNumero() != PaginaID) {
+                                pagID = aux.getNumero();
+                            }
+                            aux = aux.getNextPagina();
+                        }
+                    }
+
+                    if (pagID == -1) { // ERROR GARRAFAL
+                        Console.WriteLine("Error en paginacion, nur no encuentra candidato a cambiar.");
+                    }
+                    else {
+                        
+                        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(pagID).setResidencia(0);
+                        this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1);
+                    }  
+                } // FIN counter > limite de pags
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
@@ -330,6 +364,9 @@ namespace SistemaOperativo {
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
             }
+
+            //procesos unicos de nur
+            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNURlectura(1);
         }
     }
 }
