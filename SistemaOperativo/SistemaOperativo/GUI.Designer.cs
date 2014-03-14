@@ -233,6 +233,7 @@
             this.bReseteoNur.TabIndex = 18;
             this.bReseteoNur.Text = "Reseteo Bits  NUR";
             this.bReseteoNur.UseVisualStyleBackColor = true;
+            this.bReseteoNur.Click += new System.EventHandler(this.bReseteoNur_Click);
             // 
             // dataGridView1
             // 

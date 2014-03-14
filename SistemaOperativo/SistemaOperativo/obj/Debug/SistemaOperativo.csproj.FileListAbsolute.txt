@@ -15,3 +15,12 @@ C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\D
 C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.Properties.Resources.resources
 C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csproj.GenerateResource.Cache
 C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.GUI.resources
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.exe.config
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.exe
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.pdb
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.exe
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.pdb
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csprojResolveAssemblyReference.cache
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.GUI.resources
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.Properties.Resources.resources
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csproj.GenerateResource.Cache

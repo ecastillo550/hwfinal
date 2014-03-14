@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaOperativo
-{
-    class Proceso
-    {
+namespace SistemaOperativo {
+    class Proceso {
         private int id;
         private int llegada;
         private int estado;
@@ -16,8 +14,7 @@ namespace SistemaOperativo
         private ListaPagina listapagina;
         private Proceso nextProceso;
 
-        public Proceso(int id, int llegada, int tiempo, int estado, int numpag)
-        {
+        public Proceso(int id, int llegada, int tiempo, int estado, int numpag) {
             setId(id);
             setLlegada(llegada);
             setEstado(estado);
@@ -26,67 +23,52 @@ namespace SistemaOperativo
             listapagina = new ListaPagina();
         }
 
-        public Proceso()
-        {
+        public Proceso() {
             listapagina = new ListaPagina();
         }
 
-        public void setId(int id)
-        {
+        public void setId(int id) {
             this.id = id;
         }
-        public void setLlegada(int llegada)
-        {
+        public void setLlegada(int llegada) {
             this.llegada = llegada;
         }
-        public void setEstado(int estado)
-        {
+        public void setEstado(int estado) {
             this.estado = estado;
         }
-        public void setNumeropaginas(int numeropaginas)
-        {
+        public void setNumeropaginas(int numeropaginas) {
             this.numeropaginas = numeropaginas;
         }
-        public void setTiempo(int tiempototalestimado)
-        {
+        public void setTiempo(int tiempototalestimado) {
             this.tiempototalestimado = tiempototalestimado;
         }
         //llamada hacia listapagina que llama a set pagina-- conservamos el nombre para simplificacion
-        public void setPagina(int numero, int residencia, int llegada, int acceso, int NURlectura, int NURescritura, int modificacion)
-        {
+        public void setPagina(int numero, int residencia, int llegada, int acceso, int NURlectura, int NURescritura, int modificacion) {
             this.listapagina.setPagina(numero, residencia, llegada, acceso, NURlectura, NURescritura, modificacion);
         }
-        public void setNextProceso(Proceso nextProceso)
-        {
+        public void setNextProceso(Proceso nextProceso) {
             this.nextProceso = nextProceso;
         }
 
-        public int getId()
-        {
+        public int getId() {
             return id;
         }
-        public int getLlegada()
-        {
+        public int getLlegada() {
             return llegada;
         }
-        public int getEstado()
-        {
+        public int getEstado() {
             return estado;
         }
-        public int getNumeropaginas()
-        {
+        public int getNumeropaginas() {
             return numeropaginas;
         }
-        public int getTiempo()
-        {
+        public int getTiempo() {
             return tiempototalestimado;
         }
-        public ListaPagina getListaPagina()
-        {
+        public ListaPagina getListaPagina() {
             return listapagina;
         }
-        public Proceso getNextProceso()
-        {
+        public Proceso getNextProceso() {
             return nextProceso;
         }
     }
