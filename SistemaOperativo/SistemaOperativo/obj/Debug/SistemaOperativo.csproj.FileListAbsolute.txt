@@ -1,0 +1,8 @@
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.exe.config
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csprojResolveAssemblyReference.cache
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.Properties.Resources.resources
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csproj.GenerateResource.Cache
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.exe
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.pdb
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.exe
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.pdb
