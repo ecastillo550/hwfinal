@@ -6,3 +6,4 @@ c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\Sistem
 c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.pdb
 c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.exe
 c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.pdb
+c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.GUI.resources
