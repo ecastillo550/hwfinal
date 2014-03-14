@@ -18,6 +18,7 @@ namespace SistemaOperativo
         {
             InitializeComponent();
 
+            
             DataTable table = new DataTable();
             table.Columns.Add("Pagina", Type.GetType("System.String"));
             table.Columns.Add("R", Type.GetType("System.String"));
@@ -26,7 +27,8 @@ namespace SistemaOperativo
             table.Columns.Add("Acceso", Type.GetType("System.String"));
             table.Columns.Add("NURlectura", Type.GetType("System.String"));
             table.Columns.Add("Modificacion", Type.GetType("System.String"));
-            
+         
+
             
             
           //  String path = "C://Users//maesther//Desktop//hwfinal-master//SistemaOperativo//proc.txt";
