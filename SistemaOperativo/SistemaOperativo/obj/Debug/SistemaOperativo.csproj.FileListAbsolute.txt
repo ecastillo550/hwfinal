@@ -6,4 +6,12 @@ c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\Sistem
 c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.pdb
 c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.exe
 c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.pdb
-c:\users\ecast_000\documents\visual studio 2012\Projects\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.GUI.resources
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.exe.config
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.exe
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.pdb
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.exe
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\bin\Debug\SistemaOperativo.pdb
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csprojResolveAssemblyReference.cache
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.Properties.Resources.resources
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csproj.GenerateResource.Cache
+C:\Users\maesther\Desktop\hwfinal-master\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.GUI.resources

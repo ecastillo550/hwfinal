@@ -4,13 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SistemaOperativo {
-    static class Program {
+namespace SistemaOperativo
+{
+    static class Program
+    {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main() {
+        static void Main()
+        {
+            
 
 
             Application.EnableVisualStyles();
@@ -18,5 +22,6 @@ namespace SistemaOperativo {
             Application.Run(new GUI());
         }
 
+       
     }
 }
