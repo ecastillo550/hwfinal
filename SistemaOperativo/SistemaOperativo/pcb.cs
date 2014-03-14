@@ -99,6 +99,20 @@ namespace SistemaOperativo {
             return aux;
         }
 
+        public int getRunningProccess() {
+            int proc = -1;
+            Proceso aux = new Proceso();
+            aux = proceso;
+
+            while (aux.getNextProceso() != null) {
+                if (aux.getEstado() == 1) {
+                    proc = aux.getId();
+                }
+                aux = aux.getNextProceso();
+            }            
+            return proc;
+        }
+
         public void showState() {
             Pagina auxpaginacion = new Pagina();
             Proceso auxproceso = new Proceso();
@@ -124,9 +138,11 @@ namespace SistemaOperativo {
                     Console.WriteLine("Proceso pagina llegada: " + auxpaginacion.getLlegada());
                     Console.WriteLine("Proceso pagina acceso : " + auxpaginacion.getAcceso());
                     Console.WriteLine("Proceso pagina numero de accesos : " + auxpaginacion.getNumAcceso());
+                    Console.WriteLine("Proceso pagina numero de accesos INI: " + auxpaginacion.getNumAccesoINI());
                     Console.WriteLine("Proceso pagina NURlectura: " + auxpaginacion.getNURlectura());
                     Console.WriteLine("Proceso pagina NURescritura: " + auxpaginacion.getNURescritura());
                     Console.WriteLine("Proceso pagina modificacion: " + auxpaginacion.getModificacion());
+                    Console.WriteLine("\n");
                     auxpaginacion = auxpaginacion.getNextPagina();
                 }
                 auxproceso = auxproceso.getNextProceso();
@@ -172,6 +188,11 @@ namespace SistemaOperativo {
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
                     .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() - this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
         }
 
         public void LRU(int ProcesoID, int PaginaID) {
@@ -213,6 +234,11 @@ namespace SistemaOperativo {
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
                     .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() - this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
         }
 
         public void LFU(int ProcesoID, int PaginaID) {
@@ -254,6 +280,11 @@ namespace SistemaOperativo {
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
                     .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() - this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
         }
 
         public void NUR(int ProcesoID, int PaginaID) {
@@ -292,9 +323,13 @@ namespace SistemaOperativo {
                 }
             }//FIN siel bit residenciafue 0  
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
-            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
-                    .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
+            this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
+            if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso()-this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAccesoINI() >= 5) {
+                //Se ha accesado mas de 5 veces
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
+                this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
+            }
         }
     }
 }

@@ -39,13 +39,13 @@
             this.tb1.TabIndex = 0;
             this.tb1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // Form1
+            // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1144, 456);
             this.Controls.Add(this.tb1);
-            this.Name = "Form1";
+            this.Name = "GUI";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
