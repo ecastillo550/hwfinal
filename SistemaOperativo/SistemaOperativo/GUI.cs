@@ -34,6 +34,7 @@ namespace SistemaOperativo {
             cbAlgoritmos.Items.Add("NUR");
 
             dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
 
         } //FINAL MAIN
@@ -97,7 +98,7 @@ namespace SistemaOperativo {
             procesos.setTiempo();
 
             return procesos;
-        }
+        } // fin Setprocesos 
 
         private void GUI_Load(object sender, EventArgs e) {
 
@@ -124,26 +125,29 @@ namespace SistemaOperativo {
         private void bAlgoritmo_Click(object sender, EventArgs e) {
 
             if (cbAlgoritmos.SelectedIndex == 0) {
-                procesos.FIFO(procesos.getProcesoByID(procesos.getRunningProccess()).getId(), Convert.ToInt32(cbPaginas.SelectedIndex));
-                dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
-
+                procesos.FIFO(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
             if (cbAlgoritmos.SelectedIndex == 1) {
-                procesos.LFU(procesos.getProcesoByID(procesos.getRunningProccess()).getId(), Convert.ToInt32(cbPaginas.SelectedIndex));
-                dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
-
+                procesos.LFU(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
             if (cbAlgoritmos.SelectedIndex == 2) {
-                procesos.LRU(procesos.getProcesoByID(procesos.getRunningProccess()).getId(), Convert.ToInt32(cbPaginas.SelectedIndex));
-                dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
-
+                procesos.LRU(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
             if (cbAlgoritmos.SelectedIndex == 3) {
-                procesos.NUR(procesos.getProcesoByID(procesos.getRunningProccess()).getId(), Convert.ToInt32(cbPaginas.SelectedIndex));
-                dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
-
+                procesos.NUR(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
+            dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            procesos.TiempoPasa();
+            tbTiempoA.Text = procesos.getTiempo().ToString();
+        }
 
-        } // fin Setprocesos 
+        private void bReseteoNur_Click(object sender, EventArgs e) {
+            procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().NURreset();
+            procesos.TiempoPasa();
+            tbTiempoA.Text = procesos.getTiempo().ToString();
+            dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+        }
     }
 }
