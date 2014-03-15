@@ -14,6 +14,30 @@ namespace SistemaOperativo {
         pcb procesos = SetProcesos(path);
         public GUI() {
             InitializeComponent();
+<<<<<<< HEAD
+
+            
+            DataTable table = new DataTable();
+            table.Columns.Add("Pagina", Type.GetType("System.String"));
+            table.Columns.Add("R", Type.GetType("System.String"));
+            table.Columns.Add("Llegada", Type.GetType("System.String"));
+            table.Columns.Add("Ultimo acceso", Type.GetType("System.String"));
+            table.Columns.Add("Acceso", Type.GetType("System.String"));
+            table.Columns.Add("NURlectura", Type.GetType("System.String"));
+            table.Columns.Add("Modificacion", Type.GetType("System.String"));
+         
+
+            
+            
+          //  String path = "C://Users//maesther//Desktop//hwfinal-master//SistemaOperativo//proc.txt";
+          //   procesos = SetProcesos(path);
+            procesos.showState();
+        
+            Console.WriteLine("\n---------------------------------------------------------");
+            procesos.LFU(3, 3);
+            procesos.showState();
+=======
+>>>>>>> c23c297183580eb53a379fd8c6e6fc4372fbfb71
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
