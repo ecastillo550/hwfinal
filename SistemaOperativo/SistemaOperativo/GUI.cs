@@ -41,6 +41,7 @@ namespace SistemaOperativo {
         } //FINAL MAIN
 
         private void RefreshState() {
+            procesos.QuantumCheck(procesos.getRunningProccess());
             //Tiempo
             tbTiempoA.Text = procesos.getTiempo().ToString();
 

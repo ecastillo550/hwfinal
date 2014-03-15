@@ -471,6 +471,12 @@ namespace SistemaOperativo
             this.getProcesoByID(LoadID).setEstado(1);
         }
 
+        public void QuantumCheck(int ProcID) {
+            if (this.getTiempo() - this.getProcesoByID(ProcID).getLlegada() >= this.getQuantum()) {
+                this.LoadProcess();
+            }
+        }
+
         public void LoadProcess() {
             int proc = -1;
             Proceso aux = new Proceso();
@@ -483,9 +489,11 @@ namespace SistemaOperativo
             }
             this.getProcesoByID(proc).setEstado(3);
             if (proc == this.getNumProcesos()) {
+                this.getProcesoByID(1).setLlegada(this.getTiempo());
                 this.getProcesoByID(1).setEstado(1);
             }
             else {
+                this.getProcesoByID(proc + 1).setLlegada(this.getTiempo());
                 this.getProcesoByID(proc + 1).setEstado(1);
             }
         }
