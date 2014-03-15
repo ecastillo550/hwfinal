@@ -25,6 +25,7 @@ namespace SistemaOperativo {
                 cbPaginas.Items.Add(auxpaginacion.getNumero());
                 auxpaginacion = auxpaginacion.getNextPagina();
             }
+            cbPaginas.SelectedIndex = 0;
             
             cbAlgoritmos.Items.Add("FIFO");
             cbAlgoritmos.Items.Add("LFU");
@@ -40,7 +41,6 @@ namespace SistemaOperativo {
 
         private void RefreshState() {
             //Tiempo
-            procesos.TiempoPasa();
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
             //Datagrid
@@ -58,6 +58,7 @@ namespace SistemaOperativo {
                 cbPaginas.Items.Add(auxpaginacion.getNumero());
                 auxpaginacion = auxpaginacion.getNextPagina();
             }
+            cbPaginas.SelectedIndex = 0;
         }
 
 
@@ -166,6 +167,7 @@ namespace SistemaOperativo {
 
         private void bReseteoNur_Click(object sender, EventArgs e) {
             procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().NURreset();
+            procesos.TiempoPasa();
             RefreshState();
         }
 
