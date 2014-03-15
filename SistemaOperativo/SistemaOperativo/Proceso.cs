@@ -46,6 +46,9 @@ namespace SistemaOperativo {
         public void setPagina(int numero, int residencia, int llegada, int acceso, int NURlectura, int NURescritura, int modificacion) {
             this.listapagina.setPagina(numero, residencia, llegada, acceso, NURlectura, NURescritura, modificacion);
         }
+        public void setPagina() {
+            this.listapagina.setPagina();
+        }
         public void setNextProceso(Proceso nextProceso) {
             this.nextProceso = nextProceso;
         }

@@ -380,6 +380,7 @@
             this.bCrear.TabIndex = 35;
             this.bCrear.Text = "Crear";
             this.bCrear.UseVisualStyleBackColor = true;
+            this.bCrear.Click += new System.EventHandler(this.bCrear_Click);
             // 
             // GUI
             // 

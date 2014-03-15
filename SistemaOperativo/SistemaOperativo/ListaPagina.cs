@@ -25,6 +25,23 @@ namespace SistemaOperativo {
             }
         }
 
+        public void setPagina() {
+            if (pagina == null) {
+                pagina = new Pagina();
+            }
+            else {
+                Pagina nuevaPagina = new Pagina();
+                Pagina aux = new Pagina();
+                aux = pagina;
+
+                while (aux.getNextPagina() != null) {
+                    aux = aux.getNextPagina();
+                }
+                aux.setNextPagina(nuevaPagina);
+                //pagina = aux;  
+            }
+        }
+
         public Pagina getPagina() {
             return pagina;
         }

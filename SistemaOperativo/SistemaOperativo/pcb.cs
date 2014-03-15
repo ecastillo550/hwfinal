@@ -68,13 +68,18 @@ namespace SistemaOperativo
                 Proceso nuevoProceso = new Proceso(id, llegada, tiempo, estado, numpag);
                 Proceso aux = new Proceso();
                 aux = proceso;
+                int counter = 0;
 
-                while (aux != null)
+                while (aux.getNextProceso() != null)
                 {
+                    counter++;
                     aux = aux.getNextProceso();
                 }
                 aux.setNextProceso(nuevoProceso);
-                //proceso = aux;
+
+                if (counter >= this.getNumProcesos()) {
+                    this.setNumProcesos(counter + 1);
+                }
             }
         }
 
@@ -125,9 +130,9 @@ namespace SistemaOperativo
         public Proceso getLastProceso()
         {
             Proceso aux = new Proceso();
-            aux = proceso;
+            aux = this.getProceso();
 
-            while (aux != null)
+            while (aux.getNextProceso() != null)
             {
                 aux = aux.getNextProceso();
             }
@@ -139,7 +144,7 @@ namespace SistemaOperativo
             Proceso aux = new Proceso();
             aux = proceso;
 
-            while (aux != null)
+            while (aux.getNextProceso() != null)
             {
                 if (aux.getId() == id)
                 {

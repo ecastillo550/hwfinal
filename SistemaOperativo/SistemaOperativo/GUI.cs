@@ -10,34 +10,12 @@ using System.Windows.Forms;
 
 namespace SistemaOperativo {
     public partial class GUI : Form {
-        static String path = "C:\\Users\\ecast_000\\Documents\\udem\\sistemaoperativo\\SistemaOperativo//proc.txt";
+        static String path = "C:\\Users\\ecast_000\\Documents\\udem\\sistemaoperativo\\SistemaOperativo\\SistemaOperativo\\proc.txt";
         pcb procesos = SetProcesos(path);
+
         public GUI() {
             InitializeComponent();
-<<<<<<< HEAD
 
-            
-            DataTable table = new DataTable();
-            table.Columns.Add("Pagina", Type.GetType("System.String"));
-            table.Columns.Add("R", Type.GetType("System.String"));
-            table.Columns.Add("Llegada", Type.GetType("System.String"));
-            table.Columns.Add("Ultimo acceso", Type.GetType("System.String"));
-            table.Columns.Add("Acceso", Type.GetType("System.String"));
-            table.Columns.Add("NURlectura", Type.GetType("System.String"));
-            table.Columns.Add("Modificacion", Type.GetType("System.String"));
-         
-
-            
-            
-          //  String path = "C://Users//maesther//Desktop//hwfinal-master//SistemaOperativo//proc.txt";
-          //   procesos = SetProcesos(path);
-            procesos.showState();
-        
-            Console.WriteLine("\n---------------------------------------------------------");
-            procesos.LFU(3, 3);
-            procesos.showState();
-=======
->>>>>>> c23c297183580eb53a379fd8c6e6fc4372fbfb71
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
@@ -52,6 +30,7 @@ namespace SistemaOperativo {
             cbAlgoritmos.Items.Add("LFU");
             cbAlgoritmos.Items.Add("LRU");
             cbAlgoritmos.Items.Add("NUR");
+            procesos.showState();
 
             dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
@@ -188,6 +167,12 @@ namespace SistemaOperativo {
         private void bReseteoNur_Click(object sender, EventArgs e) {
             procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().NURreset();
             RefreshState();
+        }
+
+        private void bCrear_Click(object sender, EventArgs e) {
+            procesos.setProceso(procesos.getNumProcesos() + 1, 0, 0, 3,4);
+            procesos.getLastProceso().setPagina();
+            procesos.showState();
         }
     }
 }
