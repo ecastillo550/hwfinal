@@ -69,7 +69,7 @@ namespace SistemaOperativo
                 Proceso aux = new Proceso();
                 aux = proceso;
 
-                while (aux.getNextProceso() != null)
+                while (aux != null)
                 {
                     aux = aux.getNextProceso();
                 }
@@ -127,7 +127,7 @@ namespace SistemaOperativo
             Proceso aux = new Proceso();
             aux = proceso;
 
-            while (aux.getNextProceso() != null)
+            while (aux != null)
             {
                 aux = aux.getNextProceso();
             }
@@ -139,7 +139,7 @@ namespace SistemaOperativo
             Proceso aux = new Proceso();
             aux = proceso;
 
-            while (aux.getNextProceso() != null)
+            while (aux != null)
             {
                 if (aux.getId() == id)
                 {
@@ -154,7 +154,7 @@ namespace SistemaOperativo
             int proc = -1;
             Proceso aux = new Proceso();
             aux = proceso;
-            while (aux.getNextProceso() != null)
+            while (aux != null)
             {
                 if (aux.getEstado() == 1)
                 {
@@ -199,10 +199,11 @@ namespace SistemaOperativo
         } // fin proceso while
     }
 
-        public void FIFO(int ProcesoID, int PaginaID) {
+        public int FIFO(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
+            int resp = -1;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
             if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
@@ -233,6 +234,10 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
+                resp = 0;
+            }
+            else {
+                resp = 1;
             }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
@@ -243,12 +248,14 @@ namespace SistemaOperativo
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
             }
+            return resp;
         }
 
-        public void LRU(int ProcesoID, int PaginaID) {
+        public int LRU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
+            int resp = -1;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
             if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
@@ -279,6 +286,10 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
+                resp = 0;
+            }
+            else {
+                resp = 1;
             }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
@@ -289,12 +300,14 @@ namespace SistemaOperativo
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
             }
+            return resp;
         }
 
-        public void LFU(int ProcesoID, int PaginaID) {
+        public int LFU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
+            int resp = -1;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
             if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
@@ -325,7 +338,11 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
-            }//FIN siel bit residenciafue 0  
+                resp = 0;
+            }//FIN siel bit residenciafue 0 
+            else {
+                resp = 1;
+            }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
                     .setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
@@ -335,11 +352,13 @@ namespace SistemaOperativo
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
             }
+            return resp;
         }
 
-        public void NUR(int ProcesoID, int PaginaID) {
+        public int NUR(int ProcesoID, int PaginaID) {
             int counter = 0;
             int pagID = -1;
+            int resp = -1;
             Pagina aux = new Pagina();
 
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
@@ -406,7 +425,11 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
+                resp = 0;
             }//FIN siel bit residenciafue 0  
+            else {
+                resp = 1;
+            }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
             this.TiempoPasa();
@@ -418,6 +441,48 @@ namespace SistemaOperativo
 
             //procesos unicos de nur
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNURlectura(1);
+            return resp;
+        }
+
+        public void LoadProcess(int LoadID) {
+            int proc = -1;
+            Proceso aux = new Proceso();
+            aux = proceso;
+            while (aux.getNextProceso() != null) {
+                if (aux.getEstado() == 1) {
+                    proc = aux.getId();
+                }
+                aux = aux.getNextProceso();
+            }
+            this.getProcesoByID(proc).setEstado(3);
+            this.getProcesoByID(LoadID).setEstado(1);
+        }
+
+        public void LoadProcess() {
+            int proc = -1;
+            Proceso aux = new Proceso();
+            aux = this.getProceso();
+            while (aux != null) {
+                if (aux.getEstado() == 1) {
+                    proc = aux.getId();
+                }
+                aux = aux.getNextProceso();
+            }
+            this.getProcesoByID(proc).setEstado(3);
+            if (proc == this.getNumProcesos()) {
+                this.getProcesoByID(1).setEstado(1);
+            }
+            else {
+                this.getProcesoByID(proc + 1).setEstado(1);
+            }
+        }
+
+        public void BlockProcess(int LoadID) {
+            this.getProcesoByID(LoadID).setEstado(2);
+        }
+
+        public void UnBlockProcess(int LoadID) {
+            this.getProcesoByID(LoadID).setEstado(3);
         }
     }
 }

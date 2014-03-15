@@ -16,18 +16,14 @@ namespace SistemaOperativo {
             InitializeComponent();
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
-
-
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
             tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
-            //tbCpuAsignado.Text= procesos.getProcesoByID(procesos.getRunningProccess())
-            // tbEnvejecimiento
-            //tbQuantumRestante.Text=
             Pagina auxpaginacion = procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().getPagina();
             while (auxpaginacion != null) {
                 cbPaginas.Items.Add(auxpaginacion.getNumero());
                 auxpaginacion = auxpaginacion.getNextPagina();
             }
+            
             cbAlgoritmos.Items.Add("FIFO");
             cbAlgoritmos.Items.Add("LFU");
             cbAlgoritmos.Items.Add("LRU");
@@ -38,6 +34,28 @@ namespace SistemaOperativo {
 
 
         } //FINAL MAIN
+
+        private void RefreshState() {
+            //Tiempo
+            procesos.TiempoPasa();
+            tbTiempoA.Text = procesos.getTiempo().ToString();
+
+            //Datagrid
+            dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+            //Process info
+            tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
+            tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
+
+            //combo box paginacion
+            cbPaginas.Items.Clear();
+            Pagina auxpaginacion = procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().getPagina();
+            while (auxpaginacion != null) {
+                cbPaginas.Items.Add(auxpaginacion.getNumero());
+                auxpaginacion = auxpaginacion.getNextPagina();
+            }
+        }
 
 
         private void textBox1_TextChanged(object sender, EventArgs e) {
@@ -123,31 +141,29 @@ namespace SistemaOperativo {
         }
 
         private void bAlgoritmo_Click(object sender, EventArgs e) {
-
+            int resp = -1;
             if (cbAlgoritmos.SelectedIndex == 0) {
-                procesos.FIFO(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
+                resp = procesos.FIFO(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
             if (cbAlgoritmos.SelectedIndex == 1) {
-                procesos.LFU(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
+                resp = procesos.LFU(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
             if (cbAlgoritmos.SelectedIndex == 2) {
-                procesos.LRU(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
+                resp = procesos.LRU(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
             if (cbAlgoritmos.SelectedIndex == 3) {
-                procesos.NUR(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
+                resp = procesos.NUR(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
-            dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            procesos.TiempoPasa();
-            tbTiempoA.Text = procesos.getTiempo().ToString();
+
+            if (resp == 0) {
+                procesos.LoadProcess();
+            }
+            RefreshState();
         }
 
         private void bReseteoNur_Click(object sender, EventArgs e) {
             procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().NURreset();
-            procesos.TiempoPasa();
-            tbTiempoA.Text = procesos.getTiempo().ToString();
-            dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            RefreshState();
         }
     }
 }
