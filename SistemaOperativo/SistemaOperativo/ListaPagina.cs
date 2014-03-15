@@ -26,6 +26,7 @@ namespace SistemaOperativo {
         }
 
         public void setPagina() {
+            int counter = 1;
             if (pagina == null) {
                 pagina = new Pagina();
             }
@@ -35,8 +36,10 @@ namespace SistemaOperativo {
                 aux = pagina;
 
                 while (aux.getNextPagina() != null) {
+                    counter++;
                     aux = aux.getNextPagina();
                 }
+                nuevaPagina.setNumero(counter);
                 aux.setNextPagina(nuevaPagina);
                 //pagina = aux;  
             }

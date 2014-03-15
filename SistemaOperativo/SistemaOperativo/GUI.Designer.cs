@@ -360,7 +360,6 @@
             // 
             this.tbPagpnew.Location = new System.Drawing.Point(854, 356);
             this.tbPagpnew.Name = "tbPagpnew";
-            this.tbPagpnew.ReadOnly = true;
             this.tbPagpnew.Size = new System.Drawing.Size(50, 20);
             this.tbPagpnew.TabIndex = 33;
             // 
@@ -368,7 +367,6 @@
             // 
             this.tbejetotalPnew.Location = new System.Drawing.Point(854, 382);
             this.tbejetotalPnew.Name = "tbejetotalPnew";
-            this.tbejetotalPnew.ReadOnly = true;
             this.tbejetotalPnew.Size = new System.Drawing.Size(51, 20);
             this.tbejetotalPnew.TabIndex = 34;
             // 

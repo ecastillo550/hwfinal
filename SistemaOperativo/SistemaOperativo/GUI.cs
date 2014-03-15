@@ -172,8 +172,12 @@ namespace SistemaOperativo {
         }
 
         private void bCrear_Click(object sender, EventArgs e) {
-            procesos.setProceso(procesos.getNumProcesos() + 1, 0, 0, 3,4);
-            procesos.getLastProceso().setPagina();
+            
+            procesos.setProceso(procesos.getNumProcesos() + 1, procesos.getTiempo(), Convert.ToInt32(tbejetotalPnew.Text),3, Convert.ToInt32(tbPagpnew.Text));
+            for (int i = 0; i < procesos.getLastProceso().getNumeropaginas() ; i++) {
+                procesos.getLastProceso().setPagina();
+            }
+            
             procesos.showState();
         }
     }
