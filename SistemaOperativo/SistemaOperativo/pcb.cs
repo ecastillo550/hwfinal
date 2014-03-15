@@ -13,6 +13,7 @@ namespace SistemaOperativo
         private int maxPag;
         private int numProcesos;
         private int tiempo;
+        private int quantum;
 
         public void setTiempo()
         {
@@ -48,6 +49,12 @@ namespace SistemaOperativo
         {
             this.tiempo += 1;
         }
+        public int getQuantum() {
+            return quantum;
+        }
+        public void setQuantum(int quantum) {
+            this.quantum = quantum;
+        }
         public void setMaxPag(int maxPag)
         {
             this.maxPag = maxPag;
@@ -68,7 +75,7 @@ namespace SistemaOperativo
                 Proceso nuevoProceso = new Proceso(id, llegada, tiempo, estado, numpag);
                 Proceso aux = new Proceso();
                 aux = proceso;
-                int counter = 0;
+                int counter = 1;
 
                 while (aux.getNextProceso() != null)
                 {
@@ -197,7 +204,8 @@ namespace SistemaOperativo
                 Console.WriteLine("Proceso pagina acceso : " + auxpaginacion.getAcceso());
                 Console.WriteLine("Proceso pagina numero de accesos : " + auxpaginacion.getNumAcceso());
                 Console.WriteLine("Proceso pagina NURlectura: " + auxpaginacion.getNURlectura());
-                Console.WriteLine("Proceso pagina modificacion: " + auxpaginacion.getModificacion()); 
+                Console.WriteLine("Proceso pagina modificacion: " + auxpaginacion.getModificacion());
+                Console.WriteLine("\n-------------------------------------"); 
                 auxpaginacion = auxpaginacion.getNextPagina();
             }
             auxproceso = auxproceso.getNextProceso();

@@ -15,6 +15,7 @@ namespace SistemaOperativo {
 
         public GUI() {
             InitializeComponent();
+            procesos.setQuantum(10);
 
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
@@ -180,6 +181,11 @@ namespace SistemaOperativo {
             
                 procesos.showState();
             }
+        }
+
+        private void timepass_Click(object sender, EventArgs e) {
+            procesos.TiempoPasa(); 
+            RefreshState();
         }
     }
 }

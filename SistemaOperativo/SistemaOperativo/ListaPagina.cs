@@ -49,6 +49,16 @@ namespace SistemaOperativo {
             return pagina;
         }
 
+        public Pagina getLastPag() {
+            Pagina aux = new Pagina();
+            aux = this.getPagina();
+
+            while (aux.getNextPagina() != null) {
+                aux = aux.getNextPagina();
+            }
+            return aux;
+        }
+
         public Pagina getPaginaByNumero(int numero) {
             Pagina aux = new Pagina();
             aux = pagina;

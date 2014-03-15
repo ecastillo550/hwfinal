@@ -57,13 +57,12 @@
             this.cbInterrupcion = new System.Windows.Forms.ComboBox();
             this.bInterrumpir = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.tbNombrePnew = new System.Windows.Forms.TextBox();
             this.tbPagpnew = new System.Windows.Forms.TextBox();
             this.tbejetotalPnew = new System.Windows.Forms.TextBox();
             this.bCrear = new System.Windows.Forms.Button();
+            this.timepass = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -321,19 +320,10 @@
             this.label13.TabIndex = 28;
             this.label13.Text = "Nuevo Proceso";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(785, 340);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 13);
-            this.label14.TabIndex = 29;
-            this.label14.Text = "Nombre";
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(793, 365);
+            this.label15.Location = new System.Drawing.Point(793, 343);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(45, 13);
             this.label15.TabIndex = 30;
@@ -342,23 +332,15 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(758, 389);
+            this.label16.Location = new System.Drawing.Point(768, 382);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(80, 13);
             this.label16.TabIndex = 31;
             this.label16.Text = "Ejecusion Total";
             // 
-            // tbNombrePnew
-            // 
-            this.tbNombrePnew.Location = new System.Drawing.Point(854, 330);
-            this.tbNombrePnew.Name = "tbNombrePnew";
-            this.tbNombrePnew.ReadOnly = true;
-            this.tbNombrePnew.Size = new System.Drawing.Size(50, 20);
-            this.tbNombrePnew.TabIndex = 32;
-            // 
             // tbPagpnew
             // 
-            this.tbPagpnew.Location = new System.Drawing.Point(854, 356);
+            this.tbPagpnew.Location = new System.Drawing.Point(854, 343);
             this.tbPagpnew.Name = "tbPagpnew";
             this.tbPagpnew.Size = new System.Drawing.Size(50, 20);
             this.tbPagpnew.TabIndex = 33;
@@ -380,18 +362,27 @@
             this.bCrear.UseVisualStyleBackColor = true;
             this.bCrear.Click += new System.EventHandler(this.bCrear_Click);
             // 
+            // timepass
+            // 
+            this.timepass.Location = new System.Drawing.Point(90, 33);
+            this.timepass.Name = "timepass";
+            this.timepass.Size = new System.Drawing.Size(75, 23);
+            this.timepass.TabIndex = 36;
+            this.timepass.Text = "TIEMPO";
+            this.timepass.UseVisualStyleBackColor = true;
+            this.timepass.Click += new System.EventHandler(this.timepass_Click);
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 439);
+            this.Controls.Add(this.timepass);
             this.Controls.Add(this.bCrear);
             this.Controls.Add(this.tbejetotalPnew);
             this.Controls.Add(this.tbPagpnew);
-            this.Controls.Add(this.tbNombrePnew);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.bInterrumpir);
             this.Controls.Add(this.cbInterrupcion);
@@ -462,13 +453,12 @@
         private System.Windows.Forms.ComboBox cbInterrupcion;
         private System.Windows.Forms.Button bInterrumpir;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox tbNombrePnew;
         private System.Windows.Forms.TextBox tbPagpnew;
         private System.Windows.Forms.TextBox tbejetotalPnew;
         private System.Windows.Forms.Button bCrear;
+        private System.Windows.Forms.Button timepass;
     }
 }
 
