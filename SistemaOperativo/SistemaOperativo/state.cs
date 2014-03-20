@@ -22,5 +22,9 @@ namespace SistemaOperativo {
             get { return statedgv; }
             set { statedgv = value; }
         }
+
+        private void cls_Click(object sender, EventArgs e) {
+            this.Hide();
+        }
     }
 }

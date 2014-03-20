@@ -425,7 +425,7 @@
             this.Controls.Add(this.tbTiempoA);
             this.Controls.Add(this.label1);
             this.Name = "GUI";
-            this.Text = "Form1";
+            this.Text = "Sistema Operativo";
             this.Load += new System.EventHandler(this.GUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

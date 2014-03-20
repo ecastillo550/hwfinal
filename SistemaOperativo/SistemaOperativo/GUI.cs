@@ -187,7 +187,7 @@ namespace SistemaOperativo {
                     procesos.getLastProceso().setPagina();
                 }
             
-                procesos.showState();
+                //procesos.showState();
                 stateform.statedgvINT.DataSource = procesos.DisplayPagesState();
                 stateform.statedgvINT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             }
