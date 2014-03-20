@@ -63,6 +63,7 @@
             this.tbejetotalPnew = new System.Windows.Forms.TextBox();
             this.bCrear = new System.Windows.Forms.Button();
             this.timepass = new System.Windows.Forms.Button();
+            this.estado = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -220,7 +221,7 @@
             this.bAlgoritmo.Name = "bAlgoritmo";
             this.bAlgoritmo.Size = new System.Drawing.Size(121, 23);
             this.bAlgoritmo.TabIndex = 17;
-            this.bAlgoritmo.Text = "Cambiar Algoritmo";
+            this.bAlgoritmo.Text = "Aplicar Algoritmo";
             this.bAlgoritmo.UseVisualStyleBackColor = true;
             this.bAlgoritmo.Click += new System.EventHandler(this.bAlgoritmo_Click);
             // 
@@ -372,11 +373,22 @@
             this.timepass.UseVisualStyleBackColor = true;
             this.timepass.Click += new System.EventHandler(this.timepass_Click);
             // 
+            // estado
+            // 
+            this.estado.Location = new System.Drawing.Point(10, 404);
+            this.estado.Name = "estado";
+            this.estado.Size = new System.Drawing.Size(75, 23);
+            this.estado.TabIndex = 37;
+            this.estado.Text = "Estado";
+            this.estado.UseVisualStyleBackColor = true;
+            this.estado.Click += new System.EventHandler(this.estado_Click);
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 439);
+            this.Controls.Add(this.estado);
             this.Controls.Add(this.timepass);
             this.Controls.Add(this.bCrear);
             this.Controls.Add(this.tbejetotalPnew);
@@ -459,6 +471,7 @@
         private System.Windows.Forms.TextBox tbejetotalPnew;
         private System.Windows.Forms.Button bCrear;
         private System.Windows.Forms.Button timepass;
+        private System.Windows.Forms.Button estado;
     }
 }
 

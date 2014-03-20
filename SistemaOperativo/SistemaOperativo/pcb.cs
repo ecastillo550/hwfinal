@@ -134,6 +134,41 @@ namespace SistemaOperativo
             return table;
         }
 
+        public DataTable DisplayPagesState() {
+            DataTable table = new DataTable();
+            table.Columns.Add("Proceso", Type.GetType("System.String"));
+            table.Columns.Add("Pagina", Type.GetType("System.String"));
+            table.Columns.Add("R", Type.GetType("System.String"));
+            table.Columns.Add("Llegada", Type.GetType("System.String"));
+            table.Columns.Add("Ultimo acceso", Type.GetType("System.String"));
+            table.Columns.Add("Acceso", Type.GetType("System.String"));
+            table.Columns.Add("NURlectura", Type.GetType("System.String"));
+            table.Columns.Add("Modificacion", Type.GetType("System.String"));
+
+            Pagina auxpaginacion = new Pagina();
+            Proceso auxproceso = new Proceso();
+            auxproceso = proceso;
+
+            while (auxproceso != null) {
+
+                auxpaginacion = auxproceso.getListaPagina().getPagina();
+                while (auxpaginacion != null) {
+                    table.Rows.Add(auxproceso.getId(),
+                        auxpaginacion.getNumero(),
+                        auxpaginacion.getResidencia(),
+                        auxpaginacion.getLlegada(),
+                        auxpaginacion.getAcceso(),
+                        auxpaginacion.getNumAcceso(),
+                        auxpaginacion.getNURlectura(),
+                        auxpaginacion.getModificacion());
+                    auxpaginacion = auxpaginacion.getNextPagina();
+                }
+                auxproceso = auxproceso.getNextProceso();
+            } // fin proceso while
+
+            return table;
+        }
+
         public Proceso getLastProceso()
         {
             Proceso aux = new Proceso();
@@ -278,7 +313,7 @@ namespace SistemaOperativo
                     }
                     //hacemos crecer al maximo
                     if (aux.getAcceso() > lower) {
-                        lower = aux.getLlegada();
+                        lower = aux.getAcceso();
                     }
                     aux = aux.getNextPagina();
                 }
@@ -287,7 +322,7 @@ namespace SistemaOperativo
 
                     while (aux != null) {
                         if (aux.getAcceso() <= lower && aux.getResidencia() == 1) {
-                            lower = aux.getLlegada();
+                            lower = aux.getAcceso();
                             lowerID = aux.getNumero();
                         }
                         aux = aux.getNextPagina();

@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace SistemaOperativo {
     public partial class GUI : Form {
-        static String path = "C:\\Users\\ecast_000\\Documents\\udem\\sistemaoperativo\\SistemaOperativo\\SistemaOperativo\\proc.txt";
+        static String path = "C:\\Users\\ecast_000\\Documents\\udem\\sistemaoperativo\\SistemaOperativo\\SistemaOperativo\\SoPr14.txt";
         pcb procesos = SetProcesos(path);
+        state stateform = new state();
 
         public GUI() {
             InitializeComponent();
-            procesos.setQuantum(10);
+            procesos.setQuantum(25);
 
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
@@ -37,6 +38,8 @@ namespace SistemaOperativo {
             dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
+            stateform.statedgvINT.DataSource = procesos.DisplayPagesState();
+            stateform.statedgvINT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
         } //FINAL MAIN
 
@@ -48,6 +51,10 @@ namespace SistemaOperativo {
             //Datagrid
             dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+
+            stateform.statedgvINT.DataSource = procesos.DisplayPagesState();
+            stateform.statedgvINT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
 
             //Process info
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
@@ -181,12 +188,18 @@ namespace SistemaOperativo {
                 }
             
                 procesos.showState();
+                stateform.statedgvINT.DataSource = procesos.DisplayPagesState();
+                stateform.statedgvINT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             }
         }
 
         private void timepass_Click(object sender, EventArgs e) {
             procesos.TiempoPasa(); 
             RefreshState();
+        }
+
+        private void estado_Click(object sender, EventArgs e) {
+            stateform.Show(); 
         }
     }
 }

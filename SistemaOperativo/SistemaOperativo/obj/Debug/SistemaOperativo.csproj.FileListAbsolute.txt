@@ -24,3 +24,4 @@ C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOpera
 C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.GUI.resources
 C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.Properties.Resources.resources
 C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.csproj.GenerateResource.Cache
+C:\Users\ecast_000\Documents\udem\sistemaoperativo\SistemaOperativo\SistemaOperativo\obj\Debug\SistemaOperativo.state.resources
