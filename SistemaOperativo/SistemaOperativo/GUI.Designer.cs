@@ -64,6 +64,10 @@
             this.bCrear = new System.Windows.Forms.Button();
             this.timepass = new System.Windows.Forms.Button();
             this.estado = new System.Windows.Forms.Button();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.label14 = new System.Windows.Forms.Label();
+            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -192,9 +196,11 @@
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(200, 13);
+            this.label8.BackColor = System.Drawing.SystemColors.Menu;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(303, 17);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(209, 13);
+            this.label8.Size = new System.Drawing.Size(312, 28);
             this.label8.TabIndex = 0;
             this.label8.Text = "Tablas de Páginas del Proceso Actual";
             // 
@@ -267,7 +273,7 @@
             this.bAlgoritmoCpu.Name = "bAlgoritmoCpu";
             this.bAlgoritmoCpu.Size = new System.Drawing.Size(121, 23);
             this.bAlgoritmoCpu.TabIndex = 22;
-            this.bAlgoritmoCpu.Text = "button1";
+            this.bAlgoritmoCpu.Text = "Algoritmo de Proc";
             this.bAlgoritmoCpu.UseVisualStyleBackColor = true;
             // 
             // label11
@@ -311,15 +317,19 @@
             this.bInterrumpir.TabIndex = 27;
             this.bInterrumpir.Text = "Interrumpir";
             this.bInterrumpir.UseVisualStyleBackColor = true;
+            this.bInterrumpir.Click += new System.EventHandler(this.bInterrumpir_Click);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(785, 311);
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label13.Location = new System.Drawing.Point(756, 311);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(81, 13);
+            this.label13.Size = new System.Drawing.Size(159, 25);
             this.label13.TabIndex = 28;
             this.label13.Text = "Nuevo Proceso";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label15
             // 
@@ -333,7 +343,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(768, 382);
+            this.label16.Location = new System.Drawing.Point(757, 379);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(80, 13);
             this.label16.TabIndex = 31;
@@ -348,7 +358,7 @@
             // 
             // tbejetotalPnew
             // 
-            this.tbejetotalPnew.Location = new System.Drawing.Point(854, 382);
+            this.tbejetotalPnew.Location = new System.Drawing.Point(853, 379);
             this.tbejetotalPnew.Name = "tbejetotalPnew";
             this.tbejetotalPnew.Size = new System.Drawing.Size(51, 20);
             this.tbejetotalPnew.TabIndex = 34;
@@ -375,19 +385,54 @@
             // 
             // estado
             // 
-            this.estado.Location = new System.Drawing.Point(10, 404);
+            this.estado.Location = new System.Drawing.Point(277, 403);
             this.estado.Name = "estado";
-            this.estado.Size = new System.Drawing.Size(75, 23);
+            this.estado.Size = new System.Drawing.Size(95, 33);
             this.estado.TabIndex = 37;
             this.estado.Text = "Estado";
             this.estado.UseVisualStyleBackColor = true;
             this.estado.Click += new System.EventHandler(this.estado_Click);
             // 
+            // shapeContainer1
+            // 
+            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
+            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.rectangleShape2,
+            this.rectangleShape1});
+            this.shapeContainer1.Size = new System.Drawing.Size(975, 516);
+            this.shapeContainer1.TabIndex = 38;
+            this.shapeContainer1.TabStop = false;
+            // 
+            // rectangleShape1
+            // 
+            this.rectangleShape1.Location = new System.Drawing.Point(732, 301);
+            this.rectangleShape1.Name = "rectangleShape1";
+            this.rectangleShape1.Size = new System.Drawing.Size(209, 149);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 212);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(40, 13);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "Página";
+            // 
+            // rectangleShape2
+            // 
+            this.rectangleShape2.BackgroundImage = global::SistemaOperativo.Properties.Resources._320px_Edsger_Dijkstra_1994;
+            this.rectangleShape2.Location = new System.Drawing.Point(-3, 337);
+            this.rectangleShape2.Name = "rectangleShape2";
+            this.rectangleShape2.Size = new System.Drawing.Size(270, 180);
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(917, 439);
+            this.ClientSize = new System.Drawing.Size(975, 516);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.estado);
             this.Controls.Add(this.timepass);
             this.Controls.Add(this.bCrear);
@@ -424,6 +469,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbTiempoA);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.shapeContainer1);
             this.Name = "GUI";
             this.Text = "Sistema Operativo";
             this.Load += new System.EventHandler(this.GUI_Load);
@@ -472,6 +518,10 @@
         private System.Windows.Forms.Button bCrear;
         private System.Windows.Forms.Button timepass;
         private System.Windows.Forms.Button estado;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape1;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape2;
+        private System.Windows.Forms.Label label14;
     }
 }
 

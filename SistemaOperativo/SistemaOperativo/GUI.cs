@@ -16,23 +16,36 @@ namespace SistemaOperativo {
 
         public GUI() {
             InitializeComponent();
-            procesos.setQuantum(25);
+            procesos.setQuantum(15);
 
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
             tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
+            tbQuantumRestante.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
+
             Pagina auxpaginacion = procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().getPagina();
             while (auxpaginacion != null) {
                 cbPaginas.Items.Add(auxpaginacion.getNumero());
                 auxpaginacion = auxpaginacion.getNextPagina();
             }
             cbPaginas.SelectedIndex = 0;
-            
+
+            // Paginacion
             cbAlgoritmos.Items.Add("FIFO");
             cbAlgoritmos.Items.Add("LFU");
             cbAlgoritmos.Items.Add("LRU");
             cbAlgoritmos.Items.Add("NUR");
+
+            // Algoritmos Procesos
+            cbAlgoritmoCpu.Items.Add("RoundRobin");
+            cbAlgoritmoCpu.Items.Add("FIFO");  
+            cbAlgoritmoCpu.Items.Add("SJF");
+            cbAlgoritmoCpu.Items.Add("SRT");
+            cbAlgoritmoCpu.Items.Add("HRRN");
+
+            cbAlgoritmoCpu.SelectedIndex = 0;
+
             procesos.showState();
 
             dataGridView1.DataSource = procesos.DisplayPages(procesos.getRunningProccess());
@@ -44,7 +57,7 @@ namespace SistemaOperativo {
         } //FINAL MAIN
 
         private void RefreshState() {
-            procesos.QuantumCheck(procesos.getRunningProccess());
+            procesos.PROCfifo();
             //Tiempo
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
@@ -59,6 +72,7 @@ namespace SistemaOperativo {
             //Process info
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
             tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
+            tbQuantumRestante.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
 
             //combo box paginacion
             cbPaginas.Items.Clear();
@@ -67,7 +81,9 @@ namespace SistemaOperativo {
                 cbPaginas.Items.Add(auxpaginacion.getNumero());
                 auxpaginacion = auxpaginacion.getNextPagina();
             }
-            cbPaginas.SelectedIndex = 0;
+            if (procesos.getRunningProccess() > 1) {
+                cbPaginas.SelectedIndex = 0;
+            } 
         }
 
 
@@ -200,6 +216,15 @@ namespace SistemaOperativo {
 
         private void estado_Click(object sender, EventArgs e) {
             stateform.Show(); 
+        }
+
+        private void label13_Click(object sender, EventArgs e) {
+
+        }
+
+        private void bInterrumpir_Click(object sender, EventArgs e) {
+            procesos.BlockProcess(procesos.getRunningProccess());
+            RefreshState();
         }
     }
 }

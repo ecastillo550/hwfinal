@@ -42,6 +42,9 @@ namespace SistemaOperativo {
         public void setTiempo(int tiempototalestimado) {
             this.tiempototalestimado = tiempototalestimado;
         }
+        public void setTiempoMenos() {
+            this.tiempototalestimado -= 1;
+        }
         //llamada hacia listapagina que llama a set pagina-- conservamos el nombre para simplificacion
         public void setPagina(int numero, int residencia, int llegada, int acceso, int NURlectura, int NURescritura, int modificacion) {
             this.listapagina.setPagina(numero, residencia, llegada, acceso, NURlectura, NURescritura, modificacion);
@@ -52,7 +55,6 @@ namespace SistemaOperativo {
         public void setNextProceso(Proceso nextProceso) {
             this.nextProceso = nextProceso;
         }
-
         public int getId() {
             return id;
         }

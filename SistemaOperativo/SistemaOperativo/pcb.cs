@@ -10,11 +10,19 @@ namespace SistemaOperativo
     class pcb
     {
         private Proceso proceso;
+        private Proceso DummyPlug;
         private int maxPag;
         private int numProcesos;
         private int tiempo;
         private int quantum;
 
+        public pcb() {
+            //En caso de error se desplegara el DummyPlug
+            DummyPlug = new Proceso(-1, -1, 2, 4, 1);
+            DummyPlug.setPagina();
+        }
+
+        // los buenos Sets de la vida
         public void setTiempo()
         {
             Pagina auxpaginacion = new Pagina();
@@ -40,7 +48,6 @@ namespace SistemaOperativo
 
             this.tiempo = tiempomax;
         }
-
         public void setTiempo(int tiempo)
         {
             this.tiempo = tiempo;
@@ -48,6 +55,7 @@ namespace SistemaOperativo
         public void TiempoPasa()
         {
             this.tiempo += 1;
+            this.getProcesoByID(this.getRunningProccess()).setTiempoMenos();
         }
         public int getQuantum() {
             return quantum;
@@ -90,6 +98,7 @@ namespace SistemaOperativo
             }
         }
 
+        // metodos de control
         public Proceso getProceso()
         {
             return proceso;
@@ -107,6 +116,7 @@ namespace SistemaOperativo
             return numProcesos;
         }
 
+        // Metodos de estado
         public DataTable DisplayPages(int ProcesoID) {
             DataTable table = new DataTable();
             table.Columns.Add("Pagina", Type.GetType("System.String"));
@@ -133,10 +143,12 @@ namespace SistemaOperativo
 
             return table;
         }
-
         public DataTable DisplayPagesState() {
             DataTable table = new DataTable();
             table.Columns.Add("Proceso", Type.GetType("System.String"));
+            table.Columns.Add("Estado", Type.GetType("System.String"));
+            table.Columns.Add("LlegadaPROC", Type.GetType("System.String"));
+            table.Columns.Add("Tiempo Rest", Type.GetType("System.String"));
             table.Columns.Add("Pagina", Type.GetType("System.String"));
             table.Columns.Add("R", Type.GetType("System.String"));
             table.Columns.Add("Llegada", Type.GetType("System.String"));
@@ -154,6 +166,9 @@ namespace SistemaOperativo
                 auxpaginacion = auxproceso.getListaPagina().getPagina();
                 while (auxpaginacion != null) {
                     table.Rows.Add(auxproceso.getId(),
+                        auxproceso.getEstado(),
+                        auxproceso.getLlegada(),
+                        auxproceso.getTiempo(),
                         auxpaginacion.getNumero(),
                         auxpaginacion.getResidencia(),
                         auxpaginacion.getLlegada(),
@@ -168,7 +183,6 @@ namespace SistemaOperativo
 
             return table;
         }
-
         public Proceso getLastProceso()
         {
             Proceso aux = new Proceso();
@@ -180,12 +194,13 @@ namespace SistemaOperativo
             }
             return aux;
         }
-
         public Proceso getProcesoByID(int id)
         {
             Proceso aux = new Proceso();
             aux = proceso;
-
+            if (id == -1) {
+                return DummyPlug;
+            }
             while (aux.getNextProceso() != null)
             {
                 if (aux.getId() == id)
@@ -198,7 +213,7 @@ namespace SistemaOperativo
         }
         public int getRunningProccess()
         {
-            int proc = -1;
+            int proc = 1;
             Proceso aux = new Proceso();
             aux = proceso;
             while (aux != null)
@@ -209,10 +224,12 @@ namespace SistemaOperativo
                 }
                 aux = aux.getNextProceso();
             }
+
+            if (this.getProcesoByID(proc).getEstado() == 3 || this.getProcesoByID(proc).getEstado() == 4) {
+                return -1;
+            }
             return proc;
         }
-        
-
         public void showState(){
         Pagina auxpaginacion = new Pagina();
         Proceso auxproceso = new Proceso();
@@ -247,6 +264,7 @@ namespace SistemaOperativo
         } // fin proceso while
     }
 
+        // Metodos de paginacion
         public int FIFO(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
@@ -298,7 +316,6 @@ namespace SistemaOperativo
             }
             return resp;
         }
-
         public int LRU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
@@ -350,7 +367,6 @@ namespace SistemaOperativo
             }
             return resp;
         }
-
         public int LFU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
@@ -402,7 +418,6 @@ namespace SistemaOperativo
             }
             return resp;
         }
-
         public int NUR(int ProcesoID, int PaginaID) {
             int counter = 0;
             int pagID = -1;
@@ -492,6 +507,7 @@ namespace SistemaOperativo
             return resp;
         }
 
+        // Metodos de control de procesos
         public void LoadProcess(int LoadID) {
             int proc = -1;
             Proceso aux = new Proceso();
@@ -505,17 +521,11 @@ namespace SistemaOperativo
             this.getProcesoByID(proc).setEstado(3);
             this.getProcesoByID(LoadID).setEstado(1);
         }
-
-        public void QuantumCheck(int ProcID) {
-            if (this.getTiempo() - this.getProcesoByID(ProcID).getLlegada() >= this.getQuantum()) {
-                this.LoadProcess();
-            }
-        }
-
         public void LoadProcess() {
             int proc = -1;
             Proceso aux = new Proceso();
             aux = this.getProceso();
+            // agarramos el proceso en ejecucion
             while (aux != null) {
                 if (aux.getEstado() == 1) {
                     proc = aux.getId();
@@ -532,13 +542,63 @@ namespace SistemaOperativo
                 this.getProcesoByID(proc + 1).setEstado(1);
             }
         }
-
         public void BlockProcess(int LoadID) {
             this.getProcesoByID(LoadID).setEstado(2);
         }
-
         public void UnBlockProcess(int LoadID) {
             this.getProcesoByID(LoadID).setEstado(3);
+        }
+        public int GetTiempoRestante(int ProcID) {
+            return this.getProcesoByID(ProcID).getTiempo();
+        }
+
+        // QuantumCheck a.k.a. Round Robin!
+        public void QuantumCheck(int ProcID) {
+            if (this.getTiempo() - this.getProcesoByID(ProcID).getLlegada() >= this.getQuantum()) {
+                this.LoadProcess();
+            }
+        }
+
+        // Metodos de procesos
+        public void PROCfifo() {
+            int proc = -2;
+            int procSig = -2;
+            int mayor = 0;
+            int menor = 0;
+            Proceso aux = new Proceso();
+            aux = this.getProceso();
+            // agarramos el proceso en ejecucion
+            while (aux != null) {
+                if (aux.getEstado() == 1) {
+                    proc = aux.getId();
+                }
+                if (aux.getLlegada() > mayor) {
+                    mayor = aux.getLlegada();
+                }
+                aux = aux.getNextProceso();
+            }
+            menor = mayor;
+
+            if (GetTiempoRestante(proc) <= 0 || proc == -2) {
+                aux = this.getProceso();
+                // agarramos el proceso con la llegada mas baja
+                while (aux != null) {
+                    if (aux.getEstado() == 3) {
+                        if (aux.getLlegada() < menor) {
+                            menor = aux.getLlegada();
+                            procSig = aux.getId();
+                        }      
+                    }
+                    aux = aux.getNextProceso();
+                }
+                if (this.getProcesoByID(procSig).getTiempo() > 0 ) {
+                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                    this.getProcesoByID(procSig).setEstado(1);
+                }
+                if (proc != -2 || this.getProcesoByID(procSig).getTiempo() <= 0) {
+                    this.getProcesoByID(proc).setEstado(4);
+                }  
+            }
         }
     }
 }
