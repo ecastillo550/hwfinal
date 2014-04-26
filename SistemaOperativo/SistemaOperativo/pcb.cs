@@ -524,6 +524,8 @@ namespace SistemaOperativo
             this.getProcesoByID(proc).setEstado(3);
             this.getProcesoByID(LoadID).setEstado(1);
         }
+        
+        //Used By Round Robbin or QuantumCheck()
         public void LoadProcess() {
             int proc = -2;
             int procSig = -2;
@@ -569,7 +571,7 @@ namespace SistemaOperativo
             if (this.GetTiempoRestante(procSig) <= 0) {
                 this.getProcesoByID(procSig).setEstado(4);
             }
-        }
+        }  
         public void BlockProcess(int LoadID) {
             this.getProcesoByID(LoadID).setEstado(2);
         }
@@ -634,6 +636,49 @@ namespace SistemaOperativo
                 }  
             }
         }
+        public void SJF() {
+            int proc = -2;
+            int procSig = -2;
+            int mayor = 0;
+            int menor = 0;
+            Proceso aux = new Proceso();
+            aux = this.getProceso();
+            // agarramos el proceso en ejecucion
+            while (aux != null) {
+                if (aux.getEstado() == 1) {
+                    proc = aux.getId();
+                }
+                if (aux.getTiempo() > mayor) {
+                    mayor = aux.getTiempo();
+                }
+                aux = aux.getNextProceso();
+            }
+            menor = mayor;
+
+            if (GetTiempoRestante(proc) <= 0 || proc == -2) {
+                aux = this.getProceso();
+                // agarramos el proceso con la llegada mas baja
+                while (aux != null) {
+                    if (aux.getEstado() == 3) {
+                        if (aux.getTiempo() <= menor) {
+                            menor = aux.getTiempo();
+                            procSig = aux.getId();
+                        }
+                    }
+                    aux = aux.getNextProceso();
+                }
+                if (this.GetTiempoRestante(procSig) > 0) {
+                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                    this.getProcesoByID(procSig).setEstado(1);
+                }
+                if (this.GetTiempoRestante(procSig) <= 0) {
+                    this.getProcesoByID(procSig).setEstado(4);
+                }
+                if (proc != -2) {
+                    this.getProcesoByID(proc).setEstado(4);
+                }
+            }
+        }
         public void CheckAlgorithm(int algorithm) {
             switch (algorithm) {
                 case 0:
@@ -645,7 +690,7 @@ namespace SistemaOperativo
                     break;
                 case 2:
                     // SJF
-                    
+                    this.SJF();
                     break;
                 case 3:
                     // SRT
