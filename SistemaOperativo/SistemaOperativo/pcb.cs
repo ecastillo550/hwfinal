@@ -761,7 +761,7 @@ namespace SistemaOperativo
             // agarramos el proceso en ejecucion
             while (aux != null) {
                 //Sacamos el HRRN
-                if (aux.getTiempo() > 0) {
+                if (aux.getTiempo() > 0 && aux.getEstado() == 3) {
                     Ratio = ((this.getTiempo() - aux.getLlegada()) + aux.getTiempo()) / aux.getTiempo();
                     if (Ratio > MaxRatio) {
                         // agarramos el proceso con el mayor ratio de una vez
