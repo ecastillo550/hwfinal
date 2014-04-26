@@ -345,9 +345,9 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(757, 379);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 13);
+            this.label16.Size = new System.Drawing.Size(81, 13);
             this.label16.TabIndex = 31;
-            this.label16.Text = "Ejecusion Total";
+            this.label16.Text = "Ejecucion Total";
             // 
             // tbPagpnew
             // 

@@ -15,6 +15,7 @@ namespace SistemaOperativo
         private int numProcesos;
         private int tiempo;
         private int quantum;
+        private int LlegadaBlocked;
 
         public pcb() {
             //En caso de error se desplegara el DummyPlug
@@ -213,7 +214,7 @@ namespace SistemaOperativo
         }
         public int getRunningProccess()
         {
-            int proc = 1;
+            int proc = -1;
             Proceso aux = new Proceso();
             aux = proceso;
             while (aux != null)
@@ -225,9 +226,9 @@ namespace SistemaOperativo
                 aux = aux.getNextProceso();
             }
 
-            if (this.getProcesoByID(proc).getEstado() == 3 || this.getProcesoByID(proc).getEstado() == 4) {
-                return -1;
-            }
+            //if (this.getProcesoByID(proc).getEstado() == 3 || this.getProcesoByID(proc).getEstado() == 4 || this.getProcesoByID(proc).getEstado() == 2) {
+            //    return -1;
+            //}
             return proc;
         }
         public void showState(){
@@ -269,7 +270,7 @@ namespace SistemaOperativo
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
-            int resp = -1;
+            int FallodePag = -1;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
             if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
@@ -300,10 +301,10 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
-                resp = 0;
+                FallodePag = 1;
             }
             else {
-                resp = 1;
+                FallodePag = 0;
             }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
@@ -314,13 +315,13 @@ namespace SistemaOperativo
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
             }
-            return resp;
+            return FallodePag;
         }
         public int LRU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
-            int resp = -1;
+            int FallodePag = -1;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
             if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
@@ -351,10 +352,10 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
-                resp = 0;
+                FallodePag = 1;
             }
             else {
-                resp = 1;
+                FallodePag = 0;
             }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
@@ -365,13 +366,13 @@ namespace SistemaOperativo
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
             }
-            return resp;
+            return FallodePag;
         }
         public int LFU(int ProcesoID, int PaginaID) {
             int counter = 0;
             int lowerID = 0;
             int lower = 0;
-            int resp = -1;
+            int FallodePag = -1;
             Pagina aux = new Pagina();
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
             if (this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getResidencia() == 0) {
@@ -402,10 +403,10 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
-                resp = 0;
+                FallodePag = 1;
             }//FIN siel bit residenciafue 0 
             else {
-                resp = 1;
+                FallodePag = 0;
             }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID)
@@ -416,12 +417,12 @@ namespace SistemaOperativo
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setModificacion(1);
                 this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAccesoINI(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso());
             }
-            return resp;
+            return FallodePag;
         }
         public int NUR(int ProcesoID, int PaginaID) {
             int counter = 0;
             int pagID = -1;
-            int resp = -1;
+            int FallodePag = -1;
             Pagina aux = new Pagina();
 
             aux = this.getProcesoByID(ProcesoID).getListaPagina().getPagina();
@@ -488,10 +489,10 @@ namespace SistemaOperativo
                 else {
                     this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setResidencia(1); // si hay menos qe el max de pag
                 }
-                resp = 0;
+                FallodePag = 1;
             }//FIN siel bit residenciafue 0  
             else {
-                resp = 1;
+                FallodePag = 0;
             }
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setAcceso(this.getTiempo() + 1);
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNumAcceso(this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).getNumAcceso() + 1);
@@ -504,7 +505,7 @@ namespace SistemaOperativo
 
             //procesos unicos de nur
             this.getProcesoByID(ProcesoID).getListaPagina().getPaginaByNumero(PaginaID).setNURlectura(1);
-            return resp;
+            return FallodePag;
         }
 
         // Metodos de control de procesos
@@ -556,14 +557,15 @@ namespace SistemaOperativo
                 }
                 aux = aux.getNextProceso();
             }
-
-            if (this.GetTiempoRestante(proc) <= 0) {
-                this.getProcesoByID(proc).setEstado(4);
+            if (proc != -2) {
+                if (this.GetTiempoRestante(proc) <= 0) {
+                    this.getProcesoByID(proc).setEstado(4);
+                }
+                else {
+                    this.getProcesoByID(proc).setEstado(3);
+                }
             }
-            else {
-                this.getProcesoByID(proc).setEstado(3);
-            }
-
+            
             if (this.GetTiempoRestante(procSig) > 0) {
                 this.getProcesoByID(procSig).setLlegada(this.getTiempo());
                 this.getProcesoByID(procSig).setEstado(1);
@@ -573,10 +575,26 @@ namespace SistemaOperativo
             }
         }  
         public void BlockProcess(int LoadID) {
+            int proc = -2;
+            Proceso aux = new Proceso();
+            aux = this.getProceso();
+            // agarramos el proceso en ejecucion
+            while (aux != null) {
+                if (aux.getEstado() == 2) {
+                    proc = aux.getId();
+                }
+                aux = aux.getNextProceso();
+            }
+            if (proc != -2) {
+                this.getProcesoByID(proc).setEstado(3);
+                this.getProcesoByID(proc).setLlegada(this.getTiempo());
+            }
+            this.LlegadaBlocked = this.getTiempo();
             this.getProcesoByID(LoadID).setEstado(2);
         }
         public void UnBlockProcess(int LoadID) {
             this.getProcesoByID(LoadID).setEstado(3);
+            this.getProcesoByID(LoadID).setLlegada(this.getTiempo());
         }
         public int GetTiempoRestante(int ProcID) {
             return this.getProcesoByID(ProcID).getTiempo();
@@ -679,7 +697,77 @@ namespace SistemaOperativo
                 }
             }
         }
+        public void SRT() {
+            int proc = -2;
+            int procSig = -2;
+            int mayor = 0;
+            int menor = 0;
+            Boolean SRTFlag = false;
+            Proceso aux = new Proceso();
+            aux = this.getProceso();
+            // agarramos el proceso en ejecucion
+            while (aux != null) {
+                if (aux.getEstado() == 1) {
+                    proc = aux.getId();
+                }
+                if (aux.getTiempo() > mayor) {
+                    mayor = aux.getTiempo();
+                }
+                if (aux.getTiempo() < this.getProcesoByID(proc).getTiempo() && aux.getTiempo() >0) {
+                    SRTFlag = true;
+                }
+                aux = aux.getNextProceso();
+            }
+            menor = mayor;
+            // proc = -2 --> no hay procesos en ejecucion
+            if (GetTiempoRestante(proc) <= 0 || proc == -2 || SRTFlag) {
+                aux = this.getProceso();
+                // agarramos el proceso con la llegada mas baja
+                while (aux != null) {
+                    if (aux.getEstado() == 3) {
+                        if (aux.getTiempo() <= menor) {
+                            menor = aux.getTiempo();
+                            procSig = aux.getId();
+                        }
+                    }
+                    aux = aux.getNextProceso();
+                }
+                if (proc != -2) {
+                    if (this.GetTiempoRestante(proc) <= 0) {
+                        this.getProcesoByID(proc).setEstado(4);
+                    }
+                    else {
+                        this.getProcesoByID(proc).setEstado(3);
+                    }
+                }
+
+                if (this.GetTiempoRestante(procSig) > 0) {
+                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                    this.getProcesoByID(procSig).setEstado(1);
+                } 
+                else {
+                    this.getProcesoByID(procSig).setEstado(4);
+                }
+            }
+        }
         public void CheckAlgorithm(int algorithm) {
+            int proc = -2;
+            Proceso aux = new Proceso();
+            aux = this.getProceso();
+            // agarramos el proceso en ejecucion
+            while (aux != null) {
+                if (aux.getEstado() == 2) {
+                    proc = aux.getId();
+                }
+                aux = aux.getNextProceso();
+            }
+
+            if (proc != -2) {
+                if (this.getTiempo() - this.LlegadaBlocked > 1) {
+                    this.UnBlockProcess(proc);
+                }
+                
+            }
             switch (algorithm) {
                 case 0:
                     // roundrobin
@@ -694,6 +782,7 @@ namespace SistemaOperativo
                     break;
                 case 3:
                     // SRT
+                    this.SRT();
                     break;
                 case 4:
                     // HRRN

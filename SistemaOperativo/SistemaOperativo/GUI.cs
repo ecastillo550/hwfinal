@@ -186,8 +186,9 @@ namespace SistemaOperativo {
                 resp = procesos.NUR(procesos.getRunningProccess(), Convert.ToInt32(cbPaginas.SelectedIndex));
             }
 
-            if (resp == 0) {
-                procesos.LoadProcess();
+            if (resp == 1) {
+                procesos.BlockProcess(procesos.getRunningProccess());
+                procesos.CheckAlgorithm(cbAlgoritmoCpu.SelectedIndex);
             }
             RefreshState();
         }
