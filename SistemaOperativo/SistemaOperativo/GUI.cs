@@ -22,8 +22,8 @@ namespace SistemaOperativo {
 
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
             tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
-            tbQuantumRestante.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
-            tbEnvejecimiento.Text = procesos.QuantumRestante(procesos.getRunningProccess()).ToString();
+            tbQuantumRestante.Text = procesos.QuantumRestante(procesos.getRunningProccess()).ToString();
+            tbEnvejecimiento.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
 
             Pagina auxpaginacion = procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().getPagina();
             while (auxpaginacion != null) {
@@ -73,8 +73,8 @@ namespace SistemaOperativo {
             //Process info
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
             tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
-            tbQuantumRestante.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
-            tbEnvejecimiento.Text = procesos.QuantumRestante(procesos.getRunningProccess()).ToString();
+            tbQuantumRestante.Text = procesos.QuantumRestante(procesos.getRunningProccess()).ToString();
+            tbEnvejecimiento.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
 
             //combo box paginacion
             cbPaginas.Items.Clear();

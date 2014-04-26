@@ -750,6 +750,54 @@ namespace SistemaOperativo
                 }
             }
         }
+        public void HRRN() {
+            int proc = -2;
+            int procSig = -2;
+            double Ratio = 0;
+            double MaxRatio = 0;
+            double RatioActual = 0;
+            Proceso aux = new Proceso();
+            aux = this.getProceso();
+            // agarramos el proceso en ejecucion
+            while (aux != null) {
+                //Sacamos el HRRN
+                if (aux.getTiempo() > 0) {
+                    Ratio = ((this.getTiempo() - aux.getLlegada()) + aux.getTiempo()) / aux.getTiempo();
+                    if (Ratio > MaxRatio) {
+                        // agarramos el proceso con el mayor ratio de una vez
+                        procSig = aux.getId();
+                        MaxRatio = Ratio;
+                    }
+                }   
+                if (aux.getEstado() == 1) {
+                    proc = aux.getId();
+                    RatioActual = Ratio;
+                }
+         
+                aux = aux.getNextProceso();
+            }
+            // proc = -2 --> no hay procesos en ejecucion
+            if (GetTiempoRestante(proc) <= 0 || proc == -2 || RatioActual < MaxRatio) {
+                aux = this.getProceso();
+
+                if (proc != -2) {
+                    if (this.GetTiempoRestante(proc) <= 0) {
+                        this.getProcesoByID(proc).setEstado(4);
+                    }
+                    else {
+                        this.getProcesoByID(proc).setEstado(3);
+                    }
+                }
+
+                if (this.GetTiempoRestante(procSig) > 0) {
+                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                    this.getProcesoByID(procSig).setEstado(1);
+                }
+                else {
+                    this.getProcesoByID(procSig).setEstado(4);
+                }
+            }
+        }
         public void CheckAlgorithm(int algorithm) {
             int proc = -2;
             Proceso aux = new Proceso();
@@ -786,6 +834,7 @@ namespace SistemaOperativo
                     break;
                 case 4:
                     // HRRN
+                    this.HRRN();
                     break;
                 default:
                     this.PROCfifo();
