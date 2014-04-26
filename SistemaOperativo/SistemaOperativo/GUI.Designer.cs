@@ -65,9 +65,9 @@
             this.timepass = new System.Windows.Forms.Button();
             this.estado = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.label14 = new System.Windows.Forms.Label();
-            this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -132,9 +132,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 161);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 13);
+            this.label6.Size = new System.Drawing.Size(88, 13);
             this.label6.TabIndex = 6;
-            this.label6.Text = "Envejecimiento";
+            this.label6.Text = "Tiempo Restante";
             // 
             // label7
             // 
@@ -405,6 +405,13 @@
             this.shapeContainer1.TabIndex = 38;
             this.shapeContainer1.TabStop = false;
             // 
+            // rectangleShape2
+            // 
+            this.rectangleShape2.BackgroundImage = global::SistemaOperativo.Properties.Resources._320px_Edsger_Dijkstra_1994;
+            this.rectangleShape2.Location = new System.Drawing.Point(-3, 337);
+            this.rectangleShape2.Name = "rectangleShape2";
+            this.rectangleShape2.Size = new System.Drawing.Size(270, 180);
+            // 
             // rectangleShape1
             // 
             this.rectangleShape1.Location = new System.Drawing.Point(732, 301);
@@ -419,13 +426,6 @@
             this.label14.Size = new System.Drawing.Size(40, 13);
             this.label14.TabIndex = 39;
             this.label14.Text = "Página";
-            // 
-            // rectangleShape2
-            // 
-            this.rectangleShape2.BackgroundImage = global::SistemaOperativo.Properties.Resources._320px_Edsger_Dijkstra_1994;
-            this.rectangleShape2.Location = new System.Drawing.Point(-3, 337);
-            this.rectangleShape2.Name = "rectangleShape2";
-            this.rectangleShape2.Size = new System.Drawing.Size(270, 180);
             // 
             // GUI
             // 

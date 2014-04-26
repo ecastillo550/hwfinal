@@ -33,12 +33,12 @@
             this.statedgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.statedgv.Location = new System.Drawing.Point(12, 39);
             this.statedgv.Name = "statedgv";
-            this.statedgv.Size = new System.Drawing.Size(702, 616);
+            this.statedgv.Size = new System.Drawing.Size(932, 616);
             this.statedgv.TabIndex = 0;
             // 
             // cls
             // 
-            this.cls.Location = new System.Drawing.Point(639, 10);
+            this.cls.Location = new System.Drawing.Point(869, 10);
             this.cls.Name = "cls";
             this.cls.Size = new System.Drawing.Size(75, 23);
             this.cls.TabIndex = 1;
@@ -50,7 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(726, 672);
+            this.ClientSize = new System.Drawing.Size(956, 672);
             this.ControlBox = false;
             this.Controls.Add(this.cls);
             this.Controls.Add(this.statedgv);

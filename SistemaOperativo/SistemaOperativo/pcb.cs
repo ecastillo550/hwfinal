@@ -508,6 +508,9 @@ namespace SistemaOperativo
         }
 
         // Metodos de control de procesos
+        public int QuantumRestante(int ProcID) {
+            return this.getQuantum() - (this.getTiempo() - this.getProcesoByID(ProcID).getLlegada());
+        }
         public void LoadProcess(int LoadID) {
             int proc = -1;
             Proceso aux = new Proceso();
@@ -522,7 +525,10 @@ namespace SistemaOperativo
             this.getProcesoByID(LoadID).setEstado(1);
         }
         public void LoadProcess() {
-            int proc = -1;
+            int proc = -2;
+            int procSig = -2;
+            int mayor = 0;
+            int menor = 0;
             Proceso aux = new Proceso();
             aux = this.getProceso();
             // agarramos el proceso en ejecucion
@@ -530,16 +536,38 @@ namespace SistemaOperativo
                 if (aux.getEstado() == 1) {
                     proc = aux.getId();
                 }
+                if (aux.getLlegada() > mayor) {
+                    mayor = aux.getLlegada();
+                }
                 aux = aux.getNextProceso();
             }
-            this.getProcesoByID(proc).setEstado(3);
-            if (proc == this.getNumProcesos()) {
-                this.getProcesoByID(1).setLlegada(this.getTiempo());
-                this.getProcesoByID(1).setEstado(1);
+            menor = mayor;
+
+            aux = this.getProceso();
+            // agarramos el proceso con la llegada mas baja
+            while (aux != null) {
+                if (aux.getEstado() == 3) {
+                    if (aux.getLlegada() <= menor) {
+                        menor = aux.getLlegada();
+                        procSig = aux.getId();
+                    }
+                }
+                aux = aux.getNextProceso();
+            }
+
+            if (this.GetTiempoRestante(proc) <= 0) {
+                this.getProcesoByID(proc).setEstado(4);
             }
             else {
-                this.getProcesoByID(proc + 1).setLlegada(this.getTiempo());
-                this.getProcesoByID(proc + 1).setEstado(1);
+                this.getProcesoByID(proc).setEstado(3);
+            }
+
+            if (this.GetTiempoRestante(procSig) > 0) {
+                this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                this.getProcesoByID(procSig).setEstado(1);
+            }
+            if (this.GetTiempoRestante(procSig) <= 0) {
+                this.getProcesoByID(procSig).setEstado(4);
             }
         }
         public void BlockProcess(int LoadID) {
@@ -555,6 +583,9 @@ namespace SistemaOperativo
         // QuantumCheck a.k.a. Round Robin!
         public void QuantumCheck(int ProcID) {
             if (this.getTiempo() - this.getProcesoByID(ProcID).getLlegada() >= this.getQuantum()) {
+                this.LoadProcess();
+            }
+            if (this.GetTiempoRestante(ProcID) <= 0) {
                 this.LoadProcess();
             }
         }
@@ -584,20 +615,47 @@ namespace SistemaOperativo
                 // agarramos el proceso con la llegada mas baja
                 while (aux != null) {
                     if (aux.getEstado() == 3) {
-                        if (aux.getLlegada() < menor) {
+                        if (aux.getLlegada() <= menor) {
                             menor = aux.getLlegada();
                             procSig = aux.getId();
                         }      
                     }
                     aux = aux.getNextProceso();
                 }
-                if (this.getProcesoByID(procSig).getTiempo() > 0 ) {
+                if (this.GetTiempoRestante(procSig) > 0) {
                     this.getProcesoByID(procSig).setLlegada(this.getTiempo());
                     this.getProcesoByID(procSig).setEstado(1);
                 }
-                if (proc != -2 || this.getProcesoByID(procSig).getTiempo() <= 0) {
+                if (this.GetTiempoRestante(procSig) <= 0) {
+                    this.getProcesoByID(procSig).setEstado(4);
+                }
+                if (proc != -2) {
                     this.getProcesoByID(proc).setEstado(4);
                 }  
+            }
+        }
+        public void CheckAlgorithm(int algorithm) {
+            switch (algorithm) {
+                case 0:
+                    // roundrobin
+                    this.QuantumCheck(this.getRunningProccess());
+                    break;
+                case 1:
+                    this.PROCfifo();
+                    break;
+                case 2:
+                    // SJF
+                    
+                    break;
+                case 3:
+                    // SRT
+                    break;
+                case 4:
+                    // HRRN
+                    break;
+                default:
+                    this.PROCfifo();
+                    break;
             }
         }
     }
