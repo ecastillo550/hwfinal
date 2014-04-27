@@ -584,7 +584,6 @@ namespace SistemaOperativo
             int procSig = -2;
             int mayor = 0;
             int menor = 0;
-            Boolean ProcesoUnico = true;
             Proceso aux = new Proceso();
             aux = this.getProceso();
             // agarramos el proceso en ejecucion
@@ -606,7 +605,6 @@ namespace SistemaOperativo
                     if (aux.getLlegada() <= menor) {
                         menor = aux.getLlegada();
                         procSig = aux.getId();
-                        ProcesoUnico = false;
                     }
                 }
                 aux = aux.getNextProceso();

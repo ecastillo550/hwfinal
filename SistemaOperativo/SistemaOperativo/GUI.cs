@@ -249,6 +249,18 @@ namespace SistemaOperativo {
             BlockedText.Text = procesos.ReturnBlocked();
             RunningText.Text = procesos.ReturnRunning();
             FinishedText.Text = procesos.ReturnFinished();
+
+            if (procesos.getRunningProccess() > 0) {
+                RunningProgress.Maximum = procesos.getProcesoByID(procesos.getRunningProccess()).getTiempoUnchanged();
+                RunningProgress.Minimum = 0;
+                RunningProgress.Step = 1;
+                RunningProgress.Value = procesos.getProcesoByID(procesos.getRunningProccess()).getTiempoUnchanged() - procesos.getProcesoByID(procesos.getRunningProccess()).getTiempo();
+            }
+            else {
+                RunningProgress.Value = 0;
+            }
+
+            
         }
     }
 }

@@ -11,6 +11,7 @@ namespace SistemaOperativo {
         private int estado;
         private int numeropaginas;
         private int tiempototalestimado;
+        private int tiempototalestimadoUnchanged;
         private ListaPagina listapagina;
         private Proceso nextProceso;
 
@@ -21,6 +22,7 @@ namespace SistemaOperativo {
             setNumeropaginas(numpag);
             setTiempo(tiempo);
             listapagina = new ListaPagina();
+            setTiempoUnchanged(tiempo);
         }
 
         public Proceso() {
@@ -41,6 +43,9 @@ namespace SistemaOperativo {
         }
         public void setTiempo(int tiempototalestimado) {
             this.tiempototalestimado = tiempototalestimado;
+        }
+        public void setTiempoUnchanged(int tiempototalestimadoUnchanged) {
+            this.tiempototalestimadoUnchanged = tiempototalestimadoUnchanged;
         }
         public void setTiempoMenos() {
             this.tiempototalestimado -= 1;
@@ -69,6 +74,9 @@ namespace SistemaOperativo {
         }
         public int getTiempo() {
             return tiempototalestimado;
+        }
+        public int getTiempoUnchanged() {
+            return tiempototalestimadoUnchanged;
         }
         public ListaPagina getListaPagina() {
             return listapagina;

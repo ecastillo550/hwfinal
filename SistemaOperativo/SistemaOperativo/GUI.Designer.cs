@@ -78,6 +78,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numquantum)).BeginInit();
             this.SuspendLayout();
@@ -386,6 +389,9 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.lineShape4,
+            this.lineShape3,
+            this.lineShape2,
             this.lineShape1,
             this.rectangleShape4,
             this.rectangleShape3,
@@ -451,6 +457,7 @@
             // 
             this.RunningProgress.Location = new System.Drawing.Point(393, 443);
             this.RunningProgress.Name = "RunningProgress";
+            this.RunningProgress.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.RunningProgress.Size = new System.Drawing.Size(100, 23);
             this.RunningProgress.TabIndex = 41;
             // 
@@ -522,6 +529,30 @@
             this.label19.Size = new System.Drawing.Size(46, 13);
             this.label19.TabIndex = 49;
             this.label19.Text = "Blocked";
+            // 
+            // lineShape2
+            // 
+            this.lineShape2.Name = "lineShape2";
+            this.lineShape2.X1 = 347;
+            this.lineShape2.X2 = 392;
+            this.lineShape2.Y1 = 370;
+            this.lineShape2.Y2 = 419;
+            // 
+            // lineShape3
+            // 
+            this.lineShape3.Name = "lineShape3";
+            this.lineShape3.X1 = 495;
+            this.lineShape3.X2 = 547;
+            this.lineShape3.Y1 = 420;
+            this.lineShape3.Y2 = 370;
+            // 
+            // lineShape4
+            // 
+            this.lineShape4.Name = "lineShape4";
+            this.lineShape4.X1 = 495;
+            this.lineShape4.X2 = 547;
+            this.lineShape4.Y1 = 441;
+            this.lineShape4.Y2 = 482;
             // 
             // GUI
             // 
@@ -635,6 +666,9 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape4;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape3;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
     }
 }
 
