@@ -17,6 +17,9 @@ namespace SistemaOperativo {
         public GUI() {
             InitializeComponent();
             procesos.setQuantum(5);
+            numquantum.Value = 5;
+            numquantum.Maximum = 2500;
+            numquantum.Minimum = 1;
 
             tbTiempoA.Text = procesos.getTiempo().ToString();
 
@@ -54,6 +57,7 @@ namespace SistemaOperativo {
 
             stateform.statedgvINT.DataSource = procesos.DisplayPagesState();
             stateform.statedgvINT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            RefreshGraph();
 
         } //FINAL MAIN
 
@@ -85,7 +89,8 @@ namespace SistemaOperativo {
             }
             if (procesos.getRunningProccess() > 1) {
                 cbPaginas.SelectedIndex = 0;
-            } 
+            }
+            RefreshGraph();
         }
 
 
@@ -210,6 +215,7 @@ namespace SistemaOperativo {
                 stateform.statedgvINT.DataSource = procesos.DisplayPagesState();
                 stateform.statedgvINT.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             }
+            RefreshGraph();
         }
 
         private void timepass_Click(object sender, EventArgs e) {
@@ -228,6 +234,21 @@ namespace SistemaOperativo {
         private void bInterrumpir_Click(object sender, EventArgs e) {
             procesos.BlockProcess(procesos.getRunningProccess());
             RefreshState();
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            procesos.setQuantum((int)numquantum.Value);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e) {
+
+        }
+
+        private void RefreshGraph() {
+            ReadyText.Text = procesos.ReturnReady();
+            BlockedText.Text = procesos.ReturnBlocked();
+            RunningText.Text = procesos.ReturnRunning();
+            FinishedText.Text = procesos.ReturnFinished();
         }
     }
 }

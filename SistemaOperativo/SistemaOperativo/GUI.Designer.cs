@@ -49,7 +49,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cbAlgoritmoCpu = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numquantum = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.cbInterrupcion = new System.Windows.Forms.ComboBox();
             this.bInterrumpir = new System.Windows.Forms.Button();
@@ -69,8 +69,17 @@
             this.rectangleShape3 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape4 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.RunningProgress = new System.Windows.Forms.ProgressBar();
+            this.ReadyText = new System.Windows.Forms.TextBox();
+            this.RunningText = new System.Windows.Forms.TextBox();
+            this.BlockedText = new System.Windows.Forms.TextBox();
+            this.FinishedText = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numquantum)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -227,9 +236,12 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(171, 42);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(607, 229);
             this.dataGridView1.TabIndex = 19;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -260,12 +272,12 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Quantum";
             // 
-            // numericUpDown1
+            // numquantum
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(851, 275);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDown1.TabIndex = 24;
+            this.numquantum.Location = new System.Drawing.Point(851, 275);
+            this.numquantum.Name = "numquantum";
+            this.numquantum.Size = new System.Drawing.Size(54, 20);
+            this.numquantum.TabIndex = 24;
             // 
             // label12
             // 
@@ -360,7 +372,7 @@
             // 
             // estado
             // 
-            this.estado.Location = new System.Drawing.Point(292, 456);
+            this.estado.Location = new System.Drawing.Point(25, 217);
             this.estado.Name = "estado";
             this.estado.Size = new System.Drawing.Size(127, 33);
             this.estado.TabIndex = 37;
@@ -413,6 +425,7 @@
             this.button1.TabIndex = 40;
             this.button1.Text = "Cambiar Quantum";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // rectangleShape3
             // 
@@ -434,11 +447,96 @@
             this.lineShape1.Y1 = 2;
             this.lineShape1.Y2 = 309;
             // 
+            // RunningProgress
+            // 
+            this.RunningProgress.Location = new System.Drawing.Point(393, 443);
+            this.RunningProgress.Name = "RunningProgress";
+            this.RunningProgress.Size = new System.Drawing.Size(100, 23);
+            this.RunningProgress.TabIndex = 41;
+            // 
+            // ReadyText
+            // 
+            this.ReadyText.Location = new System.Drawing.Point(307, 352);
+            this.ReadyText.Name = "ReadyText";
+            this.ReadyText.ReadOnly = true;
+            this.ReadyText.Size = new System.Drawing.Size(100, 20);
+            this.ReadyText.TabIndex = 42;
+            // 
+            // RunningText
+            // 
+            this.RunningText.Location = new System.Drawing.Point(393, 421);
+            this.RunningText.Name = "RunningText";
+            this.RunningText.ReadOnly = true;
+            this.RunningText.Size = new System.Drawing.Size(100, 20);
+            this.RunningText.TabIndex = 43;
+            this.RunningText.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // BlockedText
+            // 
+            this.BlockedText.Location = new System.Drawing.Point(547, 463);
+            this.BlockedText.Name = "BlockedText";
+            this.BlockedText.ReadOnly = true;
+            this.BlockedText.Size = new System.Drawing.Size(100, 20);
+            this.BlockedText.TabIndex = 44;
+            // 
+            // FinishedText
+            // 
+            this.FinishedText.Location = new System.Drawing.Point(547, 352);
+            this.FinishedText.Name = "FinishedText";
+            this.FinishedText.ReadOnly = true;
+            this.FinishedText.Size = new System.Drawing.Size(100, 20);
+            this.FinishedText.TabIndex = 45;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(306, 336);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 46;
+            this.label5.Text = "Ready";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(417, 407);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(47, 13);
+            this.label17.TabIndex = 47;
+            this.label17.Text = "Running";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(544, 336);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(46, 13);
+            this.label18.TabIndex = 48;
+            this.label18.Text = "Finished";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(545, 449);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(46, 13);
+            this.label19.TabIndex = 49;
+            this.label19.Text = "Blocked";
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(975, 516);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.FinishedText);
+            this.Controls.Add(this.BlockedText);
+            this.Controls.Add(this.RunningText);
+            this.Controls.Add(this.ReadyText);
+            this.Controls.Add(this.RunningProgress);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.estado);
@@ -452,7 +550,7 @@
             this.Controls.Add(this.bInterrumpir);
             this.Controls.Add(this.cbInterrupcion);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numquantum);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.cbAlgoritmoCpu);
             this.Controls.Add(this.label10);
@@ -479,7 +577,7 @@
             this.Text = "Sistema Operativo";
             this.Load += new System.EventHandler(this.GUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numquantum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -508,7 +606,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cbAlgoritmoCpu;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numquantum;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbInterrupcion;
         private System.Windows.Forms.Button bInterrumpir;
@@ -528,6 +626,15 @@
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape4;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ProgressBar RunningProgress;
+        private System.Windows.Forms.TextBox ReadyText;
+        private System.Windows.Forms.TextBox RunningText;
+        private System.Windows.Forms.TextBox BlockedText;
+        private System.Windows.Forms.TextBox FinishedText;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
     }
 }
 

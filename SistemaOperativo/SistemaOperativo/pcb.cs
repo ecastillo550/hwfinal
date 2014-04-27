@@ -225,10 +225,6 @@ namespace SistemaOperativo
                 }
                 aux = aux.getNextProceso();
             }
-
-            //if (this.getProcesoByID(proc).getEstado() == 3 || this.getProcesoByID(proc).getEstado() == 4 || this.getProcesoByID(proc).getEstado() == 2) {
-            //    return -1;
-            //}
             return proc;
         }
         public void showState(){
@@ -264,6 +260,62 @@ namespace SistemaOperativo
             auxproceso = auxproceso.getNextProceso();
         } // fin proceso while
     }
+        public string ReturnReady() {
+            string ready = "";
+
+            Proceso aux = new Proceso();
+            aux = proceso;
+            while (aux != null) {
+                if (aux.getEstado() == 3) {
+                    ready += aux.getId() + ", ";
+                }
+                aux = aux.getNextProceso();
+            }
+
+            return ready;
+        }
+        public string ReturnRunning() {
+            string ready = "";
+
+            Proceso aux = new Proceso();
+            aux = proceso;
+            while (aux != null) {
+                if (aux.getEstado() == 1) {
+                    ready += aux.getId() + ", ";
+                }
+                aux = aux.getNextProceso();
+            }
+
+            return ready;
+        }
+        public string ReturnBlocked() {
+            string ready = "";
+
+            Proceso aux = new Proceso();
+            aux = proceso;
+            while (aux != null) {
+                if (aux.getEstado() == 2) {
+                    ready += aux.getId() + ", ";
+                }
+                aux = aux.getNextProceso();
+            }
+
+            return ready;
+        }
+        public string ReturnFinished() {
+            string ready = "";
+
+            Proceso aux = new Proceso();
+            aux = proceso;
+            while (aux != null) {
+                if (aux.getEstado() == 4) {
+                    ready += aux.getId() + ", ";
+                }
+                aux = aux.getNextProceso();
+            }
+
+            return ready;
+        }
 
         // Metodos de paginacion
         public int FIFO(int ProcesoID, int PaginaID) {
@@ -532,6 +584,7 @@ namespace SistemaOperativo
             int procSig = -2;
             int mayor = 0;
             int menor = 0;
+            Boolean ProcesoUnico = true;
             Proceso aux = new Proceso();
             aux = this.getProceso();
             // agarramos el proceso en ejecucion
@@ -553,19 +606,27 @@ namespace SistemaOperativo
                     if (aux.getLlegada() <= menor) {
                         menor = aux.getLlegada();
                         procSig = aux.getId();
+                        ProcesoUnico = false;
                     }
                 }
                 aux = aux.getNextProceso();
             }
             if (proc != -2) {
-                if (this.GetTiempoRestante(proc) <= 0) {
-                    this.getProcesoByID(proc).setEstado(4);
+                if (procSig != -2) {
+                    if (this.GetTiempoRestante(proc) <= 0) {
+                        this.getProcesoByID(proc).setEstado(4);
+                    }
+                    else {
+                        this.getProcesoByID(proc).setEstado(3);
+                    }
                 }
                 else {
-                    this.getProcesoByID(proc).setEstado(3);
+                    if (this.GetTiempoRestante(proc) <= 0) {
+                        this.getProcesoByID(proc).setEstado(4);
+                    }
                 }
+                
             }
-            
             if (this.GetTiempoRestante(procSig) > 0) {
                 this.getProcesoByID(procSig).setLlegada(this.getTiempo());
                 this.getProcesoByID(procSig).setEstado(1);

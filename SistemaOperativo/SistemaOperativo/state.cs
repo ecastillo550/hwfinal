@@ -26,5 +26,9 @@ namespace SistemaOperativo {
         private void cls_Click(object sender, EventArgs e) {
             this.Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e) {
+            this.Hide();
+        }
     }
 }
