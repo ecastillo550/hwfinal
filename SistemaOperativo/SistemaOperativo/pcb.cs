@@ -58,6 +58,12 @@ namespace SistemaOperativo
             this.tiempo += 1;
             this.getProcesoByID(this.getRunningProccess()).setTiempoMenos();
         }
+        public void TiempoPasa(int Interrupcion) {
+            this.tiempo += 1;
+            if (Interrupcion != 1) {
+                this.getProcesoByID(this.getRunningProccess()).setTiempoMenos();
+            }           
+        }
         public int getQuantum() {
             return quantum;
         }
@@ -617,22 +623,36 @@ namespace SistemaOperativo
                     else {
                         this.getProcesoByID(proc).setEstado(3);
                     }
+                    if (this.GetTiempoRestante(procSig) > 0) {
+                        this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                        this.getProcesoByID(procSig).setEstado(1);
+                    }
                 }
                 else {
                     if (this.GetTiempoRestante(proc) <= 0) {
                         this.getProcesoByID(proc).setEstado(4);
                     }
                 }
-                
+
             }
-            if (this.GetTiempoRestante(procSig) > 0) {
-                this.getProcesoByID(procSig).setLlegada(this.getTiempo());
-                this.getProcesoByID(procSig).setEstado(1);
+            if (procSig != -2) {
+                if (this.GetTiempoRestante(procSig) > 0) {
+                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                    this.getProcesoByID(procSig).setEstado(1);
+                }
             }
             if (this.GetTiempoRestante(procSig) <= 0) {
                 this.getProcesoByID(procSig).setEstado(4);
             }
-        }  
+        }
+        public void SendToReady(int proc) {
+            this.getProcesoByID(proc).setEstado(3);
+            this.getProcesoByID(proc).setLlegada(this.getTiempo());
+        }
+        public void FINISHHIM(int proc) { // a.k.a. FATALITY
+            this.getProcesoByID(proc).setEstado(4);
+            this.getProcesoByID(proc).setLlegada(this.getTiempo());
+        }
         public void BlockProcess(int LoadID) {
             int proc = -2;
             Proceso aux = new Proceso();
@@ -701,10 +721,13 @@ namespace SistemaOperativo
                     }
                     aux = aux.getNextProceso();
                 }
-                if (this.GetTiempoRestante(procSig) > 0) {
-                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
-                    this.getProcesoByID(procSig).setEstado(1);
+                if (procSig != -2) {
+                    if (this.GetTiempoRestante(procSig) > 0) {
+                        this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                        this.getProcesoByID(procSig).setEstado(1);
+                    }
                 }
+                
                 if (this.GetTiempoRestante(procSig) <= 0) {
                     this.getProcesoByID(procSig).setEstado(4);
                 }
@@ -744,9 +767,11 @@ namespace SistemaOperativo
                     }
                     aux = aux.getNextProceso();
                 }
-                if (this.GetTiempoRestante(procSig) > 0) {
-                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
-                    this.getProcesoByID(procSig).setEstado(1);
+                if (procSig != -2) {
+                    if (this.GetTiempoRestante(procSig) > 0) {
+                        this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                        this.getProcesoByID(procSig).setEstado(1);
+                    }
                 }
                 if (this.GetTiempoRestante(procSig) <= 0) {
                     this.getProcesoByID(procSig).setEstado(4);
@@ -800,10 +825,12 @@ namespace SistemaOperativo
                     }
                 }
 
-                if (this.GetTiempoRestante(procSig) > 0) {
-                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
-                    this.getProcesoByID(procSig).setEstado(1);
-                } 
+                if (procSig != -2) {
+                    if (this.GetTiempoRestante(procSig) > 0) {
+                        this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                        this.getProcesoByID(procSig).setEstado(1);
+                    }
+                }
                 else {
                     this.getProcesoByID(procSig).setEstado(4);
                 }
@@ -848,9 +875,11 @@ namespace SistemaOperativo
                     }
                 }
 
-                if (this.GetTiempoRestante(procSig) > 0) {
-                    this.getProcesoByID(procSig).setLlegada(this.getTiempo());
-                    this.getProcesoByID(procSig).setEstado(1);
+                if (procSig != -2) {
+                    if (this.GetTiempoRestante(procSig) > 0) {
+                        this.getProcesoByID(procSig).setLlegada(this.getTiempo());
+                        this.getProcesoByID(procSig).setEstado(1);
+                    }
                 }
                 else {
                     this.getProcesoByID(procSig).setEstado(4);

@@ -81,6 +81,7 @@
             this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.rectangleShape5 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numquantum)).BeginInit();
             this.SuspendLayout();
@@ -389,6 +390,7 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.rectangleShape5,
             this.lineShape4,
             this.lineShape3,
             this.lineShape2,
@@ -412,7 +414,7 @@
             // 
             this.rectangleShape1.Location = new System.Drawing.Point(728, 337);
             this.rectangleShape1.Name = "rectangleShape1";
-            this.rectangleShape1.Size = new System.Drawing.Size(201, 149);
+            this.rectangleShape1.Size = new System.Drawing.Size(201, 151);
             // 
             // label14
             // 
@@ -466,7 +468,7 @@
             this.ReadyText.Location = new System.Drawing.Point(307, 352);
             this.ReadyText.Name = "ReadyText";
             this.ReadyText.ReadOnly = true;
-            this.ReadyText.Size = new System.Drawing.Size(100, 20);
+            this.ReadyText.Size = new System.Drawing.Size(186, 20);
             this.ReadyText.TabIndex = 42;
             // 
             // RunningText
@@ -483,7 +485,7 @@
             this.BlockedText.Location = new System.Drawing.Point(547, 463);
             this.BlockedText.Name = "BlockedText";
             this.BlockedText.ReadOnly = true;
-            this.BlockedText.Size = new System.Drawing.Size(100, 20);
+            this.BlockedText.Size = new System.Drawing.Size(68, 20);
             this.BlockedText.TabIndex = 44;
             // 
             // FinishedText
@@ -491,7 +493,7 @@
             this.FinishedText.Location = new System.Drawing.Point(547, 352);
             this.FinishedText.Name = "FinishedText";
             this.FinishedText.ReadOnly = true;
-            this.FinishedText.Size = new System.Drawing.Size(100, 20);
+            this.FinishedText.Size = new System.Drawing.Size(174, 20);
             this.FinishedText.TabIndex = 45;
             // 
             // label5
@@ -553,6 +555,12 @@
             this.lineShape4.X2 = 547;
             this.lineShape4.Y1 = 441;
             this.lineShape4.Y2 = 482;
+            // 
+            // rectangleShape5
+            // 
+            this.rectangleShape5.Location = new System.Drawing.Point(300, 331);
+            this.rectangleShape5.Name = "rectangleShape5";
+            this.rectangleShape5.Size = new System.Drawing.Size(424, 157);
             // 
             // GUI
             // 
@@ -669,6 +677,7 @@
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape4;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape3;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
+        private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape5;
     }
 }
 

@@ -41,6 +41,8 @@ namespace SistemaOperativo {
             cbAlgoritmos.Items.Add("LRU");
             cbAlgoritmos.Items.Add("NUR");
 
+            cbAlgoritmos.SelectedIndex = 0;
+
             // Algoritmos Procesos
             cbAlgoritmoCpu.Items.Add("RoundRobin");
             cbAlgoritmoCpu.Items.Add("FIFO");  
@@ -49,6 +51,22 @@ namespace SistemaOperativo {
             cbAlgoritmoCpu.Items.Add("HRRN");
 
             cbAlgoritmoCpu.SelectedIndex = 0;
+
+            // Interrupciones 
+            cbInterrupcion.Items.Add("Chequeo de Máquina");//0
+            cbInterrupcion.Items.Add("Externa Interrupcion de reloj");
+            cbInterrupcion.Items.Add("Externa Interrupcion de consola ");
+            cbInterrupcion.Items.Add("Externa Interrupcion de otro procesador");
+            cbInterrupcion.Items.Add(" I/O (dispositivo)");
+            cbInterrupcion.Items.Add("Fallo de Hardware"); // 5
+            cbInterrupcion.Items.Add("---"); //6
+            cbInterrupcion.Items.Add("SVC Solicitud de recursos"); // 7
+            cbInterrupcion.Items.Add("SVC Solicitud de I/O ");
+            cbInterrupcion.Items.Add("SVC Requisición de status"); // 9
+            cbInterrupcion.Items.Add("---"); // 10
+            cbInterrupcion.Items.Add("SVC Terminación normal de programa "); // 11
+            cbInterrupcion.Items.Add("SVC Terminación anormal de proceso ");
+            cbInterrupcion.Items.Add("Fallas de programa"); // 13
 
             procesos.showState();
 
@@ -232,8 +250,44 @@ namespace SistemaOperativo {
         }
 
         private void bInterrumpir_Click(object sender, EventArgs e) {
-            procesos.BlockProcess(procesos.getRunningProccess());
-            RefreshState();
+            int Interrupcion = -1;
+            Interrupcion = cbInterrupcion.SelectedIndex;
+
+            switch (Interrupcion) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    procesos.SendToReady(procesos.getRunningProccess());
+                    procesos.CheckAlgorithm(cbAlgoritmoCpu.SelectedIndex);RefreshState();
+                    procesos.TiempoPasa(1);
+                    RefreshState();
+                    break;
+                case 6:
+                    break;
+                case 7:
+                case 8:
+                case 9:
+                    procesos.BlockProcess(procesos.getRunningProccess());
+                    procesos.CheckAlgorithm(cbAlgoritmoCpu.SelectedIndex);
+                    procesos.TiempoPasa(1);
+                    RefreshState();
+                    break;
+                case 10:
+                    break;
+                case 11:
+                case 12:
+                case 13:
+                    procesos.FINISHHIM(procesos.getRunningProccess());
+                    procesos.CheckAlgorithm(cbAlgoritmoCpu.SelectedIndex);
+                    procesos.TiempoPasa(1);
+                    RefreshState();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e) {
