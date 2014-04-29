@@ -156,6 +156,7 @@ namespace SistemaOperativo
             table.Columns.Add("Estado", Type.GetType("System.String"));
             table.Columns.Add("LlegadaPROC", Type.GetType("System.String"));
             table.Columns.Add("Tiempo Rest", Type.GetType("System.String"));
+            table.Columns.Add("Envj.", Type.GetType("System.String"));
             table.Columns.Add("Pagina", Type.GetType("System.String"));
             table.Columns.Add("R", Type.GetType("System.String"));
             table.Columns.Add("Llegada", Type.GetType("System.String"));
@@ -176,6 +177,7 @@ namespace SistemaOperativo
                         auxproceso.getEstado(),
                         auxproceso.getLlegada(),
                         auxproceso.getTiempo(),
+                        auxproceso.envejecimiento(this.getTiempo()),
                         auxpaginacion.getNumero(),
                         auxpaginacion.getResidencia(),
                         auxpaginacion.getLlegada(),
@@ -321,6 +323,11 @@ namespace SistemaOperativo
             }
 
             return ready;
+        }
+        public int envejecimientoActual() {
+            int envejecimiento = 0;
+            envejecimiento = (this.getTiempo() - this.getProcesoByID(this.getRunningProccess()).getTiempoLlegada()) - (this.getProcesoByID(this.getRunningProccess()).getTiempoUnchanged() - this.getProcesoByID(this.getRunningProccess()).getTiempo());
+            return envejecimiento;
         }
 
         // Metodos de paginacion
@@ -848,7 +855,7 @@ namespace SistemaOperativo
             while (aux != null) {
                 //Sacamos el HRRN
                 if (aux.getTiempo() > 0 && aux.getEstado() == 3) {
-                    Ratio = ((this.getTiempo() - aux.getLlegada()) + aux.getTiempo()) / aux.getTiempo();
+                    Ratio = ((aux.envejecimiento(this.getTiempo())) + aux.getTiempo()) / aux.getTiempo();
                     if (Ratio > MaxRatio) {
                         // agarramos el proceso con el mayor ratio de una vez
                         procSig = aux.getId();

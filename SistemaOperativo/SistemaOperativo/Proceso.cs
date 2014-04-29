@@ -8,6 +8,7 @@ namespace SistemaOperativo {
     class Proceso {
         private int id;
         private int llegada;
+        private int tiempollegada;
         private int estado;
         private int numeropaginas;
         private int tiempototalestimado;
@@ -21,6 +22,7 @@ namespace SistemaOperativo {
             setEstado(estado);
             setNumeropaginas(numpag);
             setTiempo(tiempo);
+            setTiempoLlegada(llegada);
             listapagina = new ListaPagina();
             setTiempoUnchanged(tiempo);
         }
@@ -34,6 +36,9 @@ namespace SistemaOperativo {
         }
         public void setLlegada(int llegada) {
             this.llegada = llegada;
+        }
+        public void setTiempoLlegada(int tiempoactual) {
+            this.tiempollegada = tiempoactual;
         }
         public void setEstado(int estado) {
             this.estado = estado;
@@ -66,6 +71,9 @@ namespace SistemaOperativo {
         public int getLlegada() {
             return llegada;
         }
+        public int getTiempoLlegada() {
+            return tiempollegada;
+        }
         public int getEstado() {
             return estado;
         }
@@ -83,6 +91,17 @@ namespace SistemaOperativo {
         }
         public Proceso getNextProceso() {
             return nextProceso;
+        }
+        public int envejecimiento(int tiempo) {
+            int envejecimiento = 0;
+            if (this.getTiempo() > 0) {
+                envejecimiento = (tiempo - this.getTiempoLlegada()) - (this.getTiempoUnchanged() - this.getTiempo());
+                return envejecimiento;
+            }
+            else {
+                return 0;
+            }
+            
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace SistemaOperativo {
     public partial class GUI : Form {
-        static String path = "C:\\Users\\ecast_000\\Documents\\udem\\sistemaoperativo\\SistemaOperativo\\SistemaOperativo\\SoPr14.txt";
+        static String path = "C:\\Users\\ecast_000\\Documents\\udem\\sistemaoperativo\\SistemaOperativo\\SistemaOperativo\\proc.txt";
         pcb procesos = SetProcesos(path);
         state stateform = new state();
 
@@ -26,7 +26,8 @@ namespace SistemaOperativo {
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
             tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
             tbQuantumRestante.Text = procesos.QuantumRestante(procesos.getRunningProccess()).ToString();
-            tbEnvejecimiento.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
+            tbTiempoRestante.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
+            tbEnvejecimiento.Text = procesos.envejecimientoActual().ToString();
 
             Pagina auxpaginacion = procesos.getProcesoByID(procesos.getRunningProccess()).getListaPagina().getPagina();
             while (auxpaginacion != null) {
@@ -96,7 +97,8 @@ namespace SistemaOperativo {
             tbNombre.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getId().ToString();
             tbLlegada.Text = procesos.getProcesoByID(procesos.getRunningProccess()).getLlegada().ToString();
             tbQuantumRestante.Text = procesos.QuantumRestante(procesos.getRunningProccess()).ToString();
-            tbEnvejecimiento.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
+            tbTiempoRestante.Text = procesos.GetTiempoRestante(procesos.getRunningProccess()).ToString();
+            tbEnvejecimiento.Text = procesos.envejecimientoActual().ToString();
 
             //combo box paginacion
             cbPaginas.Items.Clear();

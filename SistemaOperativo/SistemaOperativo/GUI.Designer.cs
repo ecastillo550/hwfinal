@@ -36,7 +36,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tbQuantumRestante = new System.Windows.Forms.TextBox();
-            this.tbEnvejecimiento = new System.Windows.Forms.TextBox();
+            this.tbTiempoRestante = new System.Windows.Forms.TextBox();
             this.tbLlegada = new System.Windows.Forms.TextBox();
             this.tbNombre = new System.Windows.Forms.TextBox();
             this.cbPaginas = new System.Windows.Forms.ComboBox();
@@ -62,13 +62,17 @@
             this.timepass = new System.Windows.Forms.Button();
             this.estado = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.rectangleShape5 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.rectangleShape4 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.rectangleShape3 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape2 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.rectangleShape1 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
             this.label14 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.rectangleShape3 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
-            this.rectangleShape4 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
-            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.RunningProgress = new System.Windows.Forms.ProgressBar();
             this.ReadyText = new System.Windows.Forms.TextBox();
             this.RunningText = new System.Windows.Forms.TextBox();
@@ -78,10 +82,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.rectangleShape5 = new Microsoft.VisualBasic.PowerPacks.RectangleShape();
+            this.tbEnvejecimiento = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numquantum)).BeginInit();
             this.SuspendLayout();
@@ -135,7 +137,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 142);
+            this.label6.Location = new System.Drawing.Point(12, 168);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 13);
             this.label6.TabIndex = 6;
@@ -144,7 +146,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 165);
+            this.label7.Location = new System.Drawing.Point(13, 191);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 13);
             this.label7.TabIndex = 7;
@@ -152,19 +154,19 @@
             // 
             // tbQuantumRestante
             // 
-            this.tbQuantumRestante.Location = new System.Drawing.Point(115, 162);
+            this.tbQuantumRestante.Location = new System.Drawing.Point(115, 188);
             this.tbQuantumRestante.Name = "tbQuantumRestante";
             this.tbQuantumRestante.ReadOnly = true;
             this.tbQuantumRestante.Size = new System.Drawing.Size(50, 20);
             this.tbQuantumRestante.TabIndex = 9;
             // 
-            // tbEnvejecimiento
+            // tbTiempoRestante
             // 
-            this.tbEnvejecimiento.Location = new System.Drawing.Point(115, 139);
-            this.tbEnvejecimiento.Name = "tbEnvejecimiento";
-            this.tbEnvejecimiento.ReadOnly = true;
-            this.tbEnvejecimiento.Size = new System.Drawing.Size(50, 20);
-            this.tbEnvejecimiento.TabIndex = 10;
+            this.tbTiempoRestante.Location = new System.Drawing.Point(115, 165);
+            this.tbTiempoRestante.Name = "tbTiempoRestante";
+            this.tbTiempoRestante.ReadOnly = true;
+            this.tbTiempoRestante.Size = new System.Drawing.Size(50, 20);
+            this.tbTiempoRestante.TabIndex = 10;
             // 
             // tbLlegada
             // 
@@ -403,6 +405,56 @@
             this.shapeContainer1.TabIndex = 38;
             this.shapeContainer1.TabStop = false;
             // 
+            // rectangleShape5
+            // 
+            this.rectangleShape5.Location = new System.Drawing.Point(300, 331);
+            this.rectangleShape5.Name = "rectangleShape5";
+            this.rectangleShape5.Size = new System.Drawing.Size(424, 157);
+            // 
+            // lineShape4
+            // 
+            this.lineShape4.Name = "lineShape4";
+            this.lineShape4.X1 = 495;
+            this.lineShape4.X2 = 547;
+            this.lineShape4.Y1 = 441;
+            this.lineShape4.Y2 = 482;
+            // 
+            // lineShape3
+            // 
+            this.lineShape3.Name = "lineShape3";
+            this.lineShape3.X1 = 495;
+            this.lineShape3.X2 = 547;
+            this.lineShape3.Y1 = 420;
+            this.lineShape3.Y2 = 370;
+            // 
+            // lineShape2
+            // 
+            this.lineShape2.Name = "lineShape2";
+            this.lineShape2.X1 = 347;
+            this.lineShape2.X2 = 392;
+            this.lineShape2.Y1 = 370;
+            this.lineShape2.Y2 = 419;
+            // 
+            // lineShape1
+            // 
+            this.lineShape1.Name = "lineShape1";
+            this.lineShape1.X1 = 168;
+            this.lineShape1.X2 = 168;
+            this.lineShape1.Y1 = 2;
+            this.lineShape1.Y2 = 309;
+            // 
+            // rectangleShape4
+            // 
+            this.rectangleShape4.Location = new System.Drawing.Point(781, 213);
+            this.rectangleShape4.Name = "rectangleShape4";
+            this.rectangleShape4.Size = new System.Drawing.Size(148, 119);
+            // 
+            // rectangleShape3
+            // 
+            this.rectangleShape3.Location = new System.Drawing.Point(782, 42);
+            this.rectangleShape3.Name = "rectangleShape3";
+            this.rectangleShape3.Size = new System.Drawing.Size(146, 162);
+            // 
             // rectangleShape2
             // 
             this.rectangleShape2.BackgroundImage = global::SistemaOperativo.Properties.Resources._320px_Edsger_Dijkstra_1994;
@@ -434,26 +486,6 @@
             this.button1.Text = "Cambiar Quantum";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // rectangleShape3
-            // 
-            this.rectangleShape3.Location = new System.Drawing.Point(782, 42);
-            this.rectangleShape3.Name = "rectangleShape3";
-            this.rectangleShape3.Size = new System.Drawing.Size(146, 162);
-            // 
-            // rectangleShape4
-            // 
-            this.rectangleShape4.Location = new System.Drawing.Point(781, 213);
-            this.rectangleShape4.Name = "rectangleShape4";
-            this.rectangleShape4.Size = new System.Drawing.Size(148, 119);
-            // 
-            // lineShape1
-            // 
-            this.lineShape1.Name = "lineShape1";
-            this.lineShape1.X1 = 168;
-            this.lineShape1.X2 = 168;
-            this.lineShape1.Y1 = 2;
-            this.lineShape1.Y2 = 309;
             // 
             // RunningProgress
             // 
@@ -532,41 +564,30 @@
             this.label19.TabIndex = 49;
             this.label19.Text = "Blocked";
             // 
-            // lineShape2
+            // tbEnvejecimiento
             // 
-            this.lineShape2.Name = "lineShape2";
-            this.lineShape2.X1 = 347;
-            this.lineShape2.X2 = 392;
-            this.lineShape2.Y1 = 370;
-            this.lineShape2.Y2 = 419;
+            this.tbEnvejecimiento.Location = new System.Drawing.Point(115, 139);
+            this.tbEnvejecimiento.Name = "tbEnvejecimiento";
+            this.tbEnvejecimiento.ReadOnly = true;
+            this.tbEnvejecimiento.Size = new System.Drawing.Size(50, 20);
+            this.tbEnvejecimiento.TabIndex = 50;
             // 
-            // lineShape3
+            // label20
             // 
-            this.lineShape3.Name = "lineShape3";
-            this.lineShape3.X1 = 495;
-            this.lineShape3.X2 = 547;
-            this.lineShape3.Y1 = 420;
-            this.lineShape3.Y2 = 370;
-            // 
-            // lineShape4
-            // 
-            this.lineShape4.Name = "lineShape4";
-            this.lineShape4.X1 = 495;
-            this.lineShape4.X2 = 547;
-            this.lineShape4.Y1 = 441;
-            this.lineShape4.Y2 = 482;
-            // 
-            // rectangleShape5
-            // 
-            this.rectangleShape5.Location = new System.Drawing.Point(300, 331);
-            this.rectangleShape5.Name = "rectangleShape5";
-            this.rectangleShape5.Size = new System.Drawing.Size(424, 157);
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(12, 142);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(79, 13);
+            this.label20.TabIndex = 51;
+            this.label20.Text = "Envejecimiento";
             // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(975, 516);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.tbEnvejecimiento);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
@@ -602,7 +623,7 @@
             this.Controls.Add(this.cbPaginas);
             this.Controls.Add(this.tbNombre);
             this.Controls.Add(this.tbLlegada);
-            this.Controls.Add(this.tbEnvejecimiento);
+            this.Controls.Add(this.tbTiempoRestante);
             this.Controls.Add(this.tbQuantumRestante);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -632,7 +653,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbQuantumRestante;
-        private System.Windows.Forms.TextBox tbEnvejecimiento;
+        private System.Windows.Forms.TextBox tbTiempoRestante;
         private System.Windows.Forms.TextBox tbLlegada;
         private System.Windows.Forms.TextBox tbNombre;
         private System.Windows.Forms.ComboBox cbPaginas;
@@ -678,6 +699,8 @@
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape3;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
         private Microsoft.VisualBasic.PowerPacks.RectangleShape rectangleShape5;
+        private System.Windows.Forms.TextBox tbEnvejecimiento;
+        private System.Windows.Forms.Label label20;
     }
 }
 
